@@ -17,7 +17,7 @@ import {
     DialogDescription,
 } from "@/components/ui/dialog"
 
-export default function LoginPage() {
+function LoginForm() {
     const { theme, setTheme } = useTheme()
     const searchParams = useSearchParams()
     const [mounted, setMounted] = React.useState(false)
@@ -401,6 +401,19 @@ export default function LoginPage() {
                 </DialogContent>
             </Dialog>
         </main>
+    )
+}
+
+export default function LoginPage() {
+    return (
+        <React.Suspense fallback={
+            <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+                <Loader2 className="w-10 h-10 animate-spin text-primary mb-4" />
+                <p className="text-muted-foreground animate-pulse">Chargement de Silo...</p>
+            </div>
+        }>
+            <LoginForm />
+        </React.Suspense>
     )
 }
 

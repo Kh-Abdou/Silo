@@ -25,7 +25,7 @@ import type { User } from "@supabase/supabase-js"
 
 import { useSearchParams, useRouter } from "next/navigation"
 
-export default function Home() {
+function HomeContent() {
     const { theme } = useTheme()
     const { toggleTheme } = useThemeTransition()
     const [authUser, setAuthUser] = React.useState<User | null>(null)
@@ -508,6 +508,19 @@ export default function Home() {
 
             <Toaster />
         </main>
+    )
+}
+
+export default function Home() {
+    return (
+        <React.Suspense fallback={
+            <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
+                <Hourglass className="w-10 h-10 animate-spin text-primary mb-4" />
+                <p className="text-muted-foreground animate-pulse text-sm font-medium uppercase tracking-widest">Initializing Vault...</p>
+            </div>
+        }>
+            <HomeContent />
+        </React.Suspense>
     )
 }
 
