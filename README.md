@@ -61,7 +61,7 @@ Create a .env file based on .env.example and fill it with your Supabase credenti
 npx prisma generate
 npx prisma db push
 
-5. Start the engine:**
+5. **Start the engine:**
 
 npm run dev
 
