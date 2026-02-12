@@ -84,9 +84,9 @@ export async function updateSession(request: NextRequest) {
     }
 
     // Protected routes - redirect to login if not authenticated
-    const protectedPaths = ["/", "/settings", "/profile"]
+    const protectedPaths = ["/dashboard", "/settings", "/profile"]
     const isProtectedPath = protectedPaths.some((path) =>
-        path === "/" ? request.nextUrl.pathname === "/" : request.nextUrl.pathname.startsWith(path)
+        request.nextUrl.pathname.startsWith(path)
     )
 
     // If on protected path and not logged in, redirect to login
@@ -94,7 +94,17 @@ export async function updateSession(request: NextRequest) {
         const url = request.nextUrl.clone()
         url.pathname = "/login"
         const response = NextResponse.redirect(url)
-        // Copy cookies from supabaseResponse to ensure potential session updates are preserved
+        supabaseResponse.cookies.getAll().forEach((cookie) => {
+            response.cookies.set(cookie.name, cookie.value, cookie)
+        })
+        return response
+    }
+
+    // If logged in user visits landing page (/), redirect to dashboard
+    if (request.nextUrl.pathname === "/" && user) {
+        const url = request.nextUrl.clone()
+        url.pathname = "/dashboard"
+        const response = NextResponse.redirect(url)
         supabaseResponse.cookies.getAll().forEach((cookie) => {
             response.cookies.set(cookie.name, cookie.value, cookie)
         })
@@ -107,9 +117,8 @@ export async function updateSession(request: NextRequest) {
 
     if (isAuthPath && user) {
         const url = request.nextUrl.clone()
-        url.pathname = "/"
+        url.pathname = "/dashboard"
         const response = NextResponse.redirect(url)
-        // Copy cookies from supabaseResponse to preserve the refreshed session
         supabaseResponse.cookies.getAll().forEach((cookie) => {
             response.cookies.set(cookie.name, cookie.value, cookie)
         })

@@ -29,7 +29,7 @@ export default function ConfirmMigrationPage() {
                     // Change complete! specific redirect for "New Email Click"
                     // We can't distinguish "Change Complete" vs "Just regular login" easily without context, 
                     // but landing here implies a flow.
-                    router.push("/") // Dashboard
+                    router.push("/dashboard") // Dashboard
                 } else {
                     // Change pending -> "Old Email Click" state
                     setIsLoading(false)

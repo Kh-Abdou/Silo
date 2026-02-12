@@ -45,7 +45,7 @@ function HomeContent() {
             // Remove the param
             const newParams = new URLSearchParams(searchParams.toString())
             newParams.delete("message")
-            router.replace(`/?${newParams.toString()}`)
+            router.replace(`/dashboard?${newParams.toString()}`)
         }
 
         // Fetch Supabase user

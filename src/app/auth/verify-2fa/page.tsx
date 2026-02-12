@@ -135,7 +135,7 @@ export default function VerifyMfaPage() {
 
             // Success! Redirect to dashboard
             toast.success("Verification successful!")
-            router.push("/")
+            router.push("/dashboard")
         } catch (err) {
             console.error("Unexpected verify error:", err)
             setError("An unexpected error occurred")
@@ -174,7 +174,7 @@ export default function VerifyMfaPage() {
 
             // Success! Redirect to dashboard
             toast.success("Vérification réussie ! Code de secours consommé.")
-            router.push("/")
+            router.push("/dashboard")
         } catch (err) {
             console.error("Recovery code verify error:", err)
             setError("An unexpected error occurred")

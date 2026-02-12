@@ -176,7 +176,7 @@ export default function UpdatePasswordPage() {
         })
 
         // Redirect to dashboard after brief delay
-        setTimeout(() => router.push("/"), 1500)
+        setTimeout(() => router.push("/dashboard"), 1500)
     }
 
     // Loading state while checking session

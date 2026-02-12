@@ -67,7 +67,7 @@ export async function signInWithEmail(email: string, password: string) {
     if (aalError) {
         console.error("AAL check error:", aalError)
         // If we can't check AAL, proceed to dashboard (safe fallback)
-        redirect("/")
+        redirect("/dashboard")
     }
 
     // If user has MFA enrolled (nextLevel = aal2) but hasn't verified yet (currentLevel = aal1)
@@ -77,7 +77,7 @@ export async function signInWithEmail(email: string, password: string) {
     }
 
     // No MFA or already verified - proceed to dashboard
-    redirect("/")
+    redirect("/dashboard")
 }
 
 export async function signUpWithEmail(email: string, password: string, name: string) {
@@ -120,7 +120,7 @@ export async function signUpWithEmail(email: string, password: string, name: str
 
     // If session exists, user is logged in (email confirmation disabled)
     if (data.session) {
-        redirect("/")
+        redirect("/dashboard")
     }
 
     return { success: true, message: "Account created! Check your email to confirm.", needsConfirmation: true }
