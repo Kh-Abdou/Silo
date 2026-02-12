@@ -134,8 +134,8 @@ export async function signOut() {
 
 export async function getUser() {
     const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    return user
+    const { data } = await supabase.auth.getUser()
+    return data?.user || null
 }
 
 // Profile validation helper

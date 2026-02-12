@@ -5,33 +5,57 @@ import { toast } from "sonner"
 interface ShareResource {
     title: string
     url: string
+    fileUrl?: string | null | undefined
+    type?: string | null | undefined
 }
 
 /**
  * useSmartShare Hook
  * 
  * Provides a robust sharing mechanism:
- * 1. Native Web Share (Universal: Mobile + Modern Desktop)
- * 2. Clipboard Fallback (Desktop or failed Native Share)
+ * 1. Native Web Share (Files Support -> Mobile + modern browsers)
+ * 2. Native Web Share (URL Fallback)
+ * 3. Clipboard Fallback (Desktop or failed Native Share)
  */
 export function useSmartShare() {
     const handleShare = async (resource: ShareResource) => {
-        // Validation: Ensure we have a URL to share
-        if (!resource.url) {
-            toast.info("Aucun lien à partager")
+        // Validation: Ensure we have something to share
+        if (!resource.url && !resource.fileUrl) {
+            toast.info("Aucun contenu à partager")
             return
         }
 
-        const shareData = {
-            title: resource.title,
-            url: resource.url
-        }
-
-        // Attempt 1: Native Web Share (Universal: Mobile + Modern Desktop)
+        // Attempt 1: Native Web Share (with Files support for Multimedia)
         if (typeof navigator !== 'undefined' && navigator.share) {
             try {
+                // If it's a file and browser supports sharing files
+                if (resource.fileUrl && resource.type !== 'LINK' && navigator.canShare) {
+                    try {
+                        const response = await fetch(resource.fileUrl)
+                        const blob = await response.blob()
+                        const filename = resource.title ? `${resource.title.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.jpg` : 'shared_image.jpg'
+                        const file = new File([blob], filename, { type: blob.type })
+
+                        if (navigator.canShare({ files: [file] })) {
+                            await navigator.share({
+                                files: [file],
+                                title: resource.title,
+                            })
+                            return
+                        }
+                    } catch (fileError) {
+                        console.error("Error preparing file for share:", fileError)
+                        // Fallback to URL sharing if file prep fails
+                    }
+                }
+
+                // Standard URL sharing (Fallback for files or when preferred)
+                const shareData = {
+                    title: resource.title,
+                    url: resource.url || resource.fileUrl || ""
+                }
+
                 await navigator.share(shareData)
-                // Success or silent cancellation by the OS/User (iOS/Android/Windows 11)
                 return
             } catch (error) {
                 // Handle user cancellation silently
@@ -39,19 +63,17 @@ export function useSmartShare() {
                     console.log("Share cancelled or not allowed by user")
                     return
                 }
-
-                // Log other sharing errors and proceed to fallback
                 console.error("Native share error:", error)
             }
         }
 
-        // Attempt 2: Clipboard Fallback (Desktop or failed/unsupported Native Share)
+        // Attempt 2: Clipboard Fallback
         if (typeof navigator !== 'undefined' && navigator.clipboard) {
             try {
-                await navigator.clipboard.writeText(resource.url)
+                const textToCopy = resource.url || resource.fileUrl || ""
+                await navigator.clipboard.writeText(textToCopy)
 
-                // Specific UX requirement: Inform that native share was unavailable but link is copied
-                toast.success("Menu partage indisponible : Lien copié dans le presse-papier !", {
+                toast.success("Lien copié dans le presse-papier !", {
                     description: resource.title,
                     duration: 4000
                 })

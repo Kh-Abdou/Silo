@@ -12,7 +12,8 @@ export default function ConfirmMigrationPage() {
     useEffect(() => {
         const checkStatus = async () => {
             const supabase = createClient()
-            const { data: { user } } = await supabase.auth.getUser()
+            const { data } = await supabase.auth.getUser()
+            const user = data?.user
 
             // Logic:
             // If user.new_email is NULL, it means the change is complete (or not pending).

@@ -29,7 +29,8 @@ export async function POST(request: NextRequest) {
 
         // 2. Get the current session (should be at AAL1 after password login)
         const supabase = await createClient()
-        const { data: { user }, error: authError } = await supabase.auth.getUser()
+        const { data, error: authError } = await supabase.auth.getUser()
+        const user = data?.user
 
         if (authError || !user) {
             return NextResponse.json(

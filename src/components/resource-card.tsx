@@ -180,7 +180,9 @@ export function ResourceCard({ resource, onDelete, onUpdate, isSelected, onSelec
 
         await smartShare({
             title: resource.title,
-            url: shareUrl
+            url: shareUrl,
+            fileUrl: resource.fileUrl,
+            type: resource.type
         })
     }
 

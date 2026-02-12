@@ -37,9 +37,51 @@ export async function updateSession(request: NextRequest) {
     )
 
     // Refresh session if expired - important for Server Components
-    const {
-        data: { user },
-    } = await supabase.auth.getUser()
+    // Wrap in try/catch to handle invalid refresh tokens and avoid crashes
+    let user = null
+    try {
+        const { data, error } = await supabase.auth.getUser()
+        if (error) {
+            // "Auth session missing!" is a normal state for guest users.
+            // Only log and handle actual errors (like invalid refresh tokens).
+            const isMissingSession = error.message?.toLowerCase().includes("session missing")
+
+            if (!isMissingSession) {
+                console.warn("[Middleware] Auth getUser error:", error.message)
+                // If it's a critical error (like invalid token), throw to handle cleanup
+                if (error.message?.toLowerCase().includes("refresh token") || error.status === 401) {
+                    throw error
+                }
+            }
+        }
+        user = data?.user
+    } catch (error) {
+        console.error("[Middleware] Critical auth failure, clearing local session:", error)
+
+        // If we are already on the login or signup page, don't redirect again to avoid loops
+        const isAuthPath = request.nextUrl.pathname.startsWith("/login") || request.nextUrl.pathname.startsWith("/signup")
+
+        if (isAuthPath) {
+            return supabaseResponse
+        }
+
+        // Prepare redirect to login
+        const loginUrl = request.nextUrl.clone()
+        loginUrl.pathname = "/login"
+        const response = NextResponse.redirect(loginUrl)
+
+        // Force clear all Supabase related cookies
+        request.cookies.getAll().forEach((cookie) => {
+            if (cookie.name.startsWith("sb-")) {
+                response.cookies.set(cookie.name, "", {
+                    path: "/",
+                    maxAge: 0,
+                })
+            }
+        })
+
+        return response
+    }
 
     // Protected routes - redirect to login if not authenticated
     const protectedPaths = ["/", "/settings", "/profile"]
@@ -47,12 +89,16 @@ export async function updateSession(request: NextRequest) {
         path === "/" ? request.nextUrl.pathname === "/" : request.nextUrl.pathname.startsWith(path)
     )
 
-
     // If on protected path and not logged in, redirect to login
     if (isProtectedPath && !user) {
         const url = request.nextUrl.clone()
         url.pathname = "/login"
-        return NextResponse.redirect(url)
+        const response = NextResponse.redirect(url)
+        // Copy cookies from supabaseResponse to ensure potential session updates are preserved
+        supabaseResponse.cookies.getAll().forEach((cookie) => {
+            response.cookies.set(cookie.name, cookie.value, cookie)
+        })
+        return response
     }
 
     // If on login/signup and already logged in, redirect to home
@@ -62,7 +108,12 @@ export async function updateSession(request: NextRequest) {
     if (isAuthPath && user) {
         const url = request.nextUrl.clone()
         url.pathname = "/"
-        return NextResponse.redirect(url)
+        const response = NextResponse.redirect(url)
+        // Copy cookies from supabaseResponse to preserve the refreshed session
+        supabaseResponse.cookies.getAll().forEach((cookie) => {
+            response.cookies.set(cookie.name, cookie.value, cookie)
+        })
+        return response
     }
 
     return supabaseResponse

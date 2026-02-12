@@ -54,7 +54,8 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
         const fetchUserData = async () => {
             setIsFetching(true)
             const supabase = createClient()
-            const { data: { user: currentUser } } = await supabase.auth.getUser()
+            const { data } = await supabase.auth.getUser()
+            const currentUser = data?.user
             if (currentUser) {
                 setName(currentUser.user_metadata?.full_name || currentUser.user_metadata?.display_name || "")
                 setEmail(currentUser.email || "")

@@ -18,7 +18,8 @@ export async function POST(request: NextRequest) {
     try {
         // 1. Get authenticated user
         const supabase = await createClient()
-        const { data: { user }, error: authError } = await supabase.auth.getUser()
+        const { data, error: authError } = await supabase.auth.getUser()
+        const user = data?.user
 
         if (authError || !user) {
             return NextResponse.json(
@@ -99,7 +100,8 @@ export async function GET() {
     try {
         // 1. Get authenticated user
         const supabase = await createClient()
-        const { data: { user }, error: authError } = await supabase.auth.getUser()
+        const { data, error: authError } = await supabase.auth.getUser()
+        const user = data?.user
 
         if (authError || !user) {
             return NextResponse.json(

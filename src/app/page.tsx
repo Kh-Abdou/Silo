@@ -51,8 +51,8 @@ function HomeContent() {
         // Fetch Supabase user
         const fetchUser = async () => {
             const supabase = createClient()
-            const { data: { user } } = await supabase.auth.getUser()
-            setAuthUser(user)
+            const { data } = await supabase.auth.getUser()
+            setAuthUser(data?.user || null)
         }
         fetchUser()
     }, [searchParams, router])
@@ -73,6 +73,11 @@ function HomeContent() {
     const [isSelectionMode, setIsSelectionMode] = React.useState(false)
 
     const toggleSelect = (id: string) => {
+        // Haptic feedback for "physical" click feel
+        if (typeof window !== "undefined" && navigator.vibrate) {
+            navigator.vibrate(15)
+        }
+
         const isPresent = selectedIds.includes(id)
         const newSelection = isPresent
             ? selectedIds.filter(i => i !== id)
@@ -433,41 +438,48 @@ function HomeContent() {
                         animate={{ y: 0, opacity: 1, x: "-50%" }}
                         exit={{ y: 50, opacity: 0, x: "-50%" }}
                         className={cn(
-                            "fixed bottom-32 left-1/2 z-[60] bg-background/40 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl flex items-center gap-6 text-foreground",
-                            isMobile ? "px-4 py-2 min-w-[280px]" : "px-6 py-4 min-w-[320px]"
+                            "fixed bottom-28 left-1/2 z-[60] bg-background/60 backdrop-blur-2xl border border-border/50 rounded-2xl shadow-2xl flex items-center text-foreground transition-all duration-300",
+                            isMobile ? "px-3 py-2 gap-3 min-w-[90vw] max-w-[95vw] flex-wrap justify-center overflow-hidden" : "px-6 py-4 gap-6 min-w-[320px]"
                         )}
                     >
-                        <div className="flex flex-col">
+                        <div className="flex flex-col shrink-0">
                             <span className="text-xs font-bold">{selectedIds.length} Selected</span>
-                            <span className="text-[9px] text-muted-foreground uppercase tracking-widest">Resources</span>
+                            <span className="text-[9px] text-muted-foreground uppercase tracking-widest leading-none">Resources</span>
                         </div>
-                        <div className="h-8 w-px bg-border ml-auto" />
-                        <button
-                            onClick={handleSelectAll}
-                            className="text-xs font-bold hover:opacity-80 transition-opacity"
-                        >
-                            {selectedIds.length === resources.length ? "Deselect All" : "Select All"}
-                        </button>
-                        <button
-                            onClick={() => { setSelectedIds([]); setIsSelectionMode(false); }}
-                            className="text-xs font-bold hover:opacity-80 transition-opacity"
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            onClick={() => handleExportZip(true)}
-                            className="bg-primary hover:bg-primary/90 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all shadow-lg text-primary-foreground"
-                        >
-                            <Download className="w-4 h-4" />
-                            Export
-                        </button>
-                        <button
-                            onClick={handleBulkDelete}
-                            className="bg-destructive hover:bg-destructive/90 px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 transition-all shadow-lg text-white"
-                        >
-                            <Trash2 className="w-4 h-4" />
-                            Delete
-                        </button>
+
+                        <div className="h-8 w-px bg-border mx-1 shrink-0" />
+
+                        <div className="flex items-center gap-3 flex-wrap justify-center">
+                            <button
+                                onClick={handleSelectAll}
+                                className="text-[10px] md:text-xs font-bold hover:text-primary transition-colors whitespace-nowrap"
+                            >
+                                {selectedIds.length === resources.length ? "Deselect All" : "Select All"}
+                            </button>
+                            <button
+                                onClick={() => { setSelectedIds([]); setIsSelectionMode(false); }}
+                                className="text-[10px] md:text-xs font-bold hover:text-destructive transition-colors whitespace-nowrap"
+                            >
+                                Cancel
+                            </button>
+
+                            <div className="flex items-center gap-2">
+                                <button
+                                    onClick={() => handleExportZip(true)}
+                                    className="bg-primary hover:bg-primary/90 px-3 md:px-4 py-1.5 md:py-2 rounded-xl text-[10px] md:text-xs font-bold flex items-center gap-2 transition-all shadow-lg text-primary-foreground whitespace-nowrap"
+                                >
+                                    <Download className="w-3.5 h-3.5" />
+                                    <span className={isMobile ? "hidden sm:inline" : "inline"}>Export</span>
+                                </button>
+                                <button
+                                    onClick={handleBulkDelete}
+                                    className="bg-destructive hover:bg-destructive/90 px-3 md:px-4 py-1.5 md:py-2 rounded-xl text-[10px] md:text-xs font-bold flex items-center gap-2 transition-all shadow-lg text-white whitespace-nowrap"
+                                >
+                                    <Trash2 className="w-3.5 h-3.5" />
+                                    <span className={isMobile ? "hidden sm:inline" : "inline"}>Delete</span>
+                                </button>
+                            </div>
+                        </div>
                     </motion.div>
                 )}
             </AnimatePresence>

@@ -30,7 +30,8 @@ export function ProfileEditView({ mounted, theme, resources, onClose }: ProfileE
     React.useEffect(() => {
         const fetchUser = async () => {
             const supabase = createClient()
-            const { data: { user } } = await supabase.auth.getUser()
+            const { data } = await supabase.auth.getUser()
+            const user = data?.user
             if (user) {
                 setName(user.user_metadata?.full_name || "")
                 setEmail(user.email || "")

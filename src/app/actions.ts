@@ -7,8 +7,8 @@ import { createClient } from "@/lib/supabase/server"
 // Helper to get current user ID
 async function getCurrentUserId(): Promise<string | null> {
     const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
-    return user?.id || null
+    const { data } = await supabase.auth.getUser()
+    return data?.user?.id || null
 }
 
 function cleanTitle(title: string): string {
