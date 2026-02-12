@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 220 15% 97%;
+    /* Silk Grey - Minimalist & Pro */
+    --foreground: 222 47% 3%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 3%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 3%;
+
+    --primary: 222 30% 40%;
+    /* Harmonized Sober Blue for Light Mode */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 220 10% 90%;
+    --input: 220 10% 90%;
+    --ring: 222 30% 35%;
+
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 222 47% 3%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 6%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 6%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 222 30% 50%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 222 20% 10%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 222 20% 10%;
+    --muted-foreground: 210 20% 60%;
+
+    --accent: 222 20% 12%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 222 30% 12%;
+    --input: 222 30% 12%;
+    --ring: 222 30% 50%;
+  }
+}
+
+@layer utilities {
+  .glass-dock {
+    @apply bg-zinc-900/70 backdrop-blur-xl border border-white/10 shadow-2xl;
+  }
+
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.012'/%3E%3C/svg%3E");
+  }
+
+  .blob {
+    @apply absolute rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-3xl opacity-35 dark:opacity-40;
+  }
+
+  .shadow-floating {
+    box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.25),
+      0 10px 20px -5px rgba(0, 0, 0, 0.1);
+  }
+
+  .dark .shadow-floating {
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8),
+      0 15px 25px -10px rgba(0, 0, 0, 0.6),
+      0 0 0 1.5px rgba(255, 255, 255, 0.08);
+    /* Enhanced rim light and deeper shadow for black-on-black visibility */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

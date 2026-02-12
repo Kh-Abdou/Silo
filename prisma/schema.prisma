@@ -1,0 +1,55 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Resource {
+  id          String       @id @default(cuid())
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  userId      String
+  url         String?
+  title       String
+  userNote    String?
+  description String?
+  type        ResourceType @default(LINK)
+  content     String?
+  imageUrl    String?
+  fileUrl     String?
+  tags        Tag[]        @relation("ResourceToTag")
+
+  @@index([userId])
+}
+
+model Tag {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  resources Resource[] @relation("ResourceToTag")
+}
+
+model RecoveryCode {
+  id        String    @id @default(cuid())
+  userId    String
+  codeHash  String
+  used      Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  usedAt    DateTime?
+
+  @@index([userId])
+  @@index([userId, used])
+}
+
+enum ResourceType {
+  LINK
+  TWEET
+  PDF
+  CODE
+  MEMBER
+  FILE
+  TEXT
+}
