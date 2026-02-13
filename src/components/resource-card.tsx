@@ -112,9 +112,9 @@ export function ResourceCard({ resource, onDelete, onUpdate, isSelected, onSelec
         if (e.altKey) {
             if (resource.fileUrl) {
                 handleDownload();
-                toast.success("Téléchargement forcé");
+                toast.success("Forced download");
             } else {
-                toast.info("Aucun fichier attaché à cette ressource");
+                toast.error("No file attached to this resource");
             }
             return
         }
@@ -123,9 +123,9 @@ export function ResourceCard({ resource, onDelete, onUpdate, isSelected, onSelec
             const url = resource.url || (resource.content?.startsWith("http") ? resource.content : null)
             if (url && url.startsWith("http")) {
                 handleOpenLink();
-                toast.success("Ouverture du lien forcée");
+                toast.success("Link opened");
             } else {
-                toast.info("Aucun lien disponible pour cette ressource");
+                toast.error("No link available for this resource");
             }
             return
         }
@@ -191,9 +191,9 @@ export function ResourceCard({ resource, onDelete, onUpdate, isSelected, onSelec
         const url = resource.url || (resource.content?.startsWith("http") ? resource.content : null)
         if (url) {
             navigator.clipboard.writeText(url)
-            toast.success("Lien copié dans le presse-papier !", {
-                description: resource.title
-            })
+            toast.success("Link copied to clipboard!")
+        } else {
+            toast.error("Failed to copy link")
         }
     }
 

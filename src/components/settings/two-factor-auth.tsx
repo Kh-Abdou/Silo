@@ -22,8 +22,8 @@ type MfaStatus = "loading" | "disabled" | "enabled" | "enrolling" | "verifying" 
 const codeSchema = z.object({
     code: z
         .string()
-        .length(6, "Le code doit contenir 6 chiffres")
-        .regex(/^\d+$/, "Le code doit être numérique"),
+        .length(6, "Code must contain 6 digits")
+        .regex(/^\d+$/, "Code must be numeric"),
 })
 
 type CodeFormData = z.infer<typeof codeSchema>
@@ -65,7 +65,7 @@ export function TwoFactorAuth() {
 
             if (listError) {
                 console.error("Error listing MFA factors:", listError)
-                setError("Impossible de vérifier le statut 2FA")
+                setError("Unable to check 2FA status")
                 setStatus("disabled")
                 return
             }
@@ -83,7 +83,7 @@ export function TwoFactorAuth() {
             }
         } catch (err) {
             console.error("Unexpected error checking MFA status:", err)
-            setError("Erreur inattendue lors de la vérification")
+            setError("Unexpected error during verification")
             setStatus("disabled")
         }
     }, [supabase.auth.mfa])
@@ -108,8 +108,8 @@ export function TwoFactorAuth() {
 
             if (enrollError) {
                 console.error("Enrollment error:", enrollError)
-                setError(enrollError.message || "Erreur lors de l'activation")
-                toast.error("Impossible d'activer le 2FA")
+                setError(enrollError.message || "Error during activation")
+                toast.error("Unable to activate 2FA")
                 setIsProcessing(false)
                 return
             }
@@ -121,8 +121,8 @@ export function TwoFactorAuth() {
             }
         } catch (err) {
             console.error("Unexpected enrollment error:", err)
-            setError("Erreur inattendue lors de l'activation")
-            toast.error("Une erreur est survenue")
+            setError("Unexpected error during activation")
+            toast.error("An error occurred")
         } finally {
             setIsProcessing(false)
         }
@@ -133,7 +133,7 @@ export function TwoFactorAuth() {
     // ========================================================================
     const handleVerify = async (data: CodeFormData) => {
         if (!factorId) {
-            setError("Aucun facteur à vérifier")
+            setError("No factor to verify")
             return
         }
 
@@ -147,9 +147,9 @@ export function TwoFactorAuth() {
 
             if (challengeError) {
                 console.error("Challenge error:", challengeError)
-                setError("Erreur lors de la création du challenge")
+                setError("Error creating challenge")
                 setStatus("enrolling")
-                toast.error("Erreur de vérification")
+                toast.error("Verification error")
                 return
             }
 
@@ -162,9 +162,9 @@ export function TwoFactorAuth() {
 
             if (verifyError) {
                 console.error("Verify error:", verifyError)
-                setError("Code invalide. Veuillez réessayer.")
+                setError("Invalid code. Please try again.")
                 setStatus("enrolling")
-                toast.error("Code invalide")
+                toast.error("Invalid code")
                 form.reset()
                 return
             }
@@ -187,18 +187,18 @@ export function TwoFactorAuth() {
                     // If recovery codes fail, still enable MFA but warn user
                     console.error("Failed to generate recovery codes")
                     setStatus("enabled")
-                    toast.warning("MFA activé mais les codes de secours n'ont pas pu être générés")
+                    toast.warning("MFA activated but recovery codes could not be generated")
                 }
             } catch (rcError) {
                 console.error("Recovery codes error:", rcError)
                 setStatus("enabled")
-                toast.warning("MFA activé mais les codes de secours n'ont pas pu être générés")
+                toast.warning("MFA activated but recovery codes could not be generated")
             }
         } catch (err) {
             console.error("Unexpected verify error:", err)
-            setError("Erreur inattendue lors de la vérification")
+            setError("Unexpected error during verification")
             setStatus("enrolling")
-            toast.error("Une erreur est survenue")
+            toast.error("An error occurred")
             form.reset()
         }
     }
@@ -208,7 +208,7 @@ export function TwoFactorAuth() {
     // ========================================================================
     const handleDisable = () => {
         if (!factorId) {
-            setError("Aucun facteur à désactiver")
+            setError("No factor to disable")
             return
         }
         // Switch to confirmation state - user must verify with TOTP code
@@ -222,7 +222,7 @@ export function TwoFactorAuth() {
     // ========================================================================
     const handleConfirmDisable = async (data: CodeFormData) => {
         if (!factorId) {
-            setError("Aucun facteur à désactiver")
+            setError("No factor to disable")
             return
         }
 
@@ -236,8 +236,8 @@ export function TwoFactorAuth() {
 
             if (challengeError) {
                 console.error("Challenge error:", challengeError)
-                setError("Erreur lors de la création du challenge")
-                toast.error("Erreur de vérification")
+                setError("Error creating challenge")
+                toast.error("Verification error")
                 setIsProcessing(false)
                 return
             }
@@ -251,8 +251,8 @@ export function TwoFactorAuth() {
 
             if (verifyError) {
                 console.error("Verify error:", verifyError)
-                setError("Code invalide. Veuillez réessayer.")
-                toast.error("Code invalide")
+                setError("Invalid code. Please try again.")
+                toast.error("Invalid code")
                 form.reset()
                 setIsProcessing(false)
                 return
@@ -265,8 +265,8 @@ export function TwoFactorAuth() {
 
             if (unenrollError) {
                 console.error("Unenroll error:", unenrollError)
-                setError(unenrollError.message || "Erreur lors de la désactivation")
-                toast.error("Impossible de désactiver le 2FA")
+                setError(unenrollError.message || "Error during deactivation")
+                toast.error("Unable to deactivate 2FA")
                 setIsProcessing(false)
                 return
             }
@@ -275,11 +275,11 @@ export function TwoFactorAuth() {
             setStatus("disabled")
             setFactorId(null)
             form.reset()
-            toast.success("Double authentification désactivée")
+            toast.success("Two-factor authentication disabled")
         } catch (err) {
             console.error("Unexpected disable error:", err)
-            setError("Erreur inattendue lors de la désactivation")
-            toast.error("Une erreur est survenue")
+            setError("Unexpected error during deactivation")
+            toast.error("An error occurred")
         } finally {
             setIsProcessing(false)
         }
@@ -319,7 +319,7 @@ export function TwoFactorAuth() {
     const handleRecoveryCodesConfirmed = () => {
         setRecoveryCodes([])
         setStatus("enabled")
-        toast.success("Double authentification activée avec codes de secours !")
+        toast.success("Two-factor authentication activated with recovery codes!")
         // Fetch remaining codes count
         fetchRemainingCodes()
     }
@@ -360,7 +360,7 @@ export function TwoFactorAuth() {
     // ========================================================================
     const handleRegenerateConfirm = async (data: CodeFormData) => {
         if (!factorId) {
-            setError("Aucun facteur MFA trouvé")
+            setError("No MFA factor found")
             return
         }
 
@@ -374,7 +374,7 @@ export function TwoFactorAuth() {
 
             if (challengeError) {
                 console.error("Challenge error:", challengeError)
-                setError("Erreur lors de la vérification")
+                setError("Verification error")
                 setIsProcessing(false)
                 return
             }
@@ -388,7 +388,7 @@ export function TwoFactorAuth() {
 
             if (verifyError) {
                 console.error("Verify error:", verifyError)
-                setError("Code invalide. Veuillez réessayer.")
+                setError("Invalid code. Please try again.")
                 form.reset()
                 setIsProcessing(false)
                 return
@@ -408,12 +408,12 @@ export function TwoFactorAuth() {
             const { codes } = await response.json()
             setRecoveryCodes(codes)
             setStatus("showing-recovery-codes")
-            toast.success("Nouveaux codes de secours générés !")
+            toast.success("New recovery codes generated!")
 
         } catch (err) {
             console.error("Regeneration error:", err)
-            setError("Erreur lors de la régénération des codes")
-            toast.error("Une erreur est survenue")
+            setError("Error during codes regeneration")
+            toast.error("An error occurred")
         } finally {
             setIsProcessing(false)
             form.reset()
@@ -442,7 +442,7 @@ export function TwoFactorAuth() {
                     <div className="flex items-center gap-2">
                         <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
                         <span className="text-sm text-muted-foreground">
-                            Vérification du statut 2FA...
+                            Checking 2FA status...
                         </span>
                     </div>
                 </div>
@@ -462,10 +462,10 @@ export function TwoFactorAuth() {
                     </div>
                     <div>
                         <p className="font-bold text-sm text-foreground">
-                            Double Authentification
+                            Two-Factor Authentication
                         </p>
                         <p className="text-[10px] text-muted-foreground uppercase tracking-tight">
-                            Non activée — Protégez votre compte
+                            Not enabled — Protect your account
                         </p>
                     </div>
                 </div>
@@ -480,7 +480,7 @@ export function TwoFactorAuth() {
                     ) : (
                         <ShieldCheck className="w-3 h-3" />
                     )}
-                    Activer
+                    Enable
                 </Button>
             </div>
         )
@@ -500,10 +500,10 @@ export function TwoFactorAuth() {
                         </div>
                         <div>
                             <p className="font-bold text-sm text-foreground">
-                                Configurer Google Authenticator
+                                Set up Google Authenticator
                             </p>
                             <p className="text-[10px] text-muted-foreground uppercase tracking-tight">
-                                Scannez le QR code avec votre application
+                                Scan the QR code with your app
                             </p>
                         </div>
                     </div>
@@ -531,13 +531,13 @@ export function TwoFactorAuth() {
                 {/* Instructions */}
                 <div className="text-center space-y-1">
                     <p className="text-xs text-muted-foreground">
-                        1. Ouvrez Google Authenticator sur votre téléphone
+                        1. Open Google Authenticator on your phone
                     </p>
                     <p className="text-xs text-muted-foreground">
-                        2. Scannez le QR code ci-dessus
+                        2. Scan the QR code above
                     </p>
                     <p className="text-xs text-muted-foreground">
-                        3. Entrez le code à 6 chiffres généré
+                        3. Enter the 6-digit generated code
                     </p>
                 </div>
 
@@ -556,7 +556,7 @@ export function TwoFactorAuth() {
                 >
                     <div className="space-y-2">
                         <Label htmlFor="code" className="text-xs">
-                            Code de vérification
+                            Verification code
                         </Label>
                         <Input
                             id="code"
@@ -585,12 +585,12 @@ export function TwoFactorAuth() {
                         {status === "verifying" ? (
                             <>
                                 <Loader2 className="w-4 h-4 animate-spin" />
-                                Vérification en cours...
+                                Verifying...
                             </>
                         ) : (
                             <>
                                 <ShieldCheck className="w-4 h-4" />
-                                Valider et activer
+                                Verify and enable
                             </>
                         )}
                     </Button>
@@ -613,10 +613,10 @@ export function TwoFactorAuth() {
                         </div>
                         <div>
                             <p className="font-bold text-sm text-foreground">
-                                Confirmer la désactivation
+                                Confirm deactivation
                             </p>
                             <p className="text-[10px] text-muted-foreground uppercase tracking-tight">
-                                Entrez votre code pour confirmer
+                                Enter your code to confirm
                             </p>
                         </div>
                     </div>
@@ -634,7 +634,7 @@ export function TwoFactorAuth() {
                 {/* Security Notice */}
                 <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
                     <p className="text-xs text-amber-600 dark:text-amber-400">
-                        Pour des raisons de sécurité, vous devez entrer un code de votre application d&apos;authentification pour désactiver le 2FA.
+                        For security reasons, you must enter a code from your authentication app to disable 2FA.
                     </p>
                 </div>
 
@@ -653,7 +653,7 @@ export function TwoFactorAuth() {
                 >
                     <div className="space-y-2">
                         <Label htmlFor="disable-code" className="text-xs">
-                            Code de vérification
+                            Verification code
                         </Label>
                         <Input
                             id="disable-code"
@@ -683,12 +683,12 @@ export function TwoFactorAuth() {
                         {isProcessing ? (
                             <>
                                 <Loader2 className="w-4 h-4 animate-spin" />
-                                Désactivation en cours...
+                                Disabling...
                             </>
                         ) : (
                             <>
                                 <X className="w-4 h-4" />
-                                Confirmer la désactivation
+                                Confirm deactivation
                             </>
                         )}
                     </Button>
@@ -711,7 +711,7 @@ export function TwoFactorAuth() {
                         <div className="flex items-center gap-2">
                             <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
                             <span className="text-sm text-muted-foreground">
-                                Sauvegardez vos codes de secours...
+                                Save your recovery codes...
                             </span>
                         </div>
                     </div>
@@ -739,10 +739,10 @@ export function TwoFactorAuth() {
                         </div>
                         <div>
                             <p className="font-bold text-sm text-foreground">
-                                Régénérer les codes de secours
+                                Regenerate recovery codes
                             </p>
                             <p className="text-[10px] text-muted-foreground uppercase tracking-tight">
-                                Vérification requise
+                                Verification required
                             </p>
                         </div>
                     </div>
@@ -760,7 +760,7 @@ export function TwoFactorAuth() {
                 {/* Security Notice */}
                 <div className="p-3 bg-amber-500/10 border border-amber-500/20 rounded-lg">
                     <p className="text-xs text-amber-600 dark:text-amber-400">
-                        Pour des raisons de sécurité, entrez votre code d&apos;authentification pour régénérer les codes de secours. Les anciens codes seront invalidés.
+                        For security reasons, enter your authentication code to regenerate recovery codes. Old codes will be invalidated.
                     </p>
                 </div>
 
@@ -779,7 +779,7 @@ export function TwoFactorAuth() {
                 >
                     <div className="space-y-2">
                         <Label htmlFor="regen-code" className="text-xs">
-                            Code de vérification
+                            Verification code
                         </Label>
                         <Input
                             id="regen-code"
@@ -808,12 +808,12 @@ export function TwoFactorAuth() {
                         {isProcessing ? (
                             <>
                                 <Loader2 className="w-4 h-4 animate-spin" />
-                                Régénération en cours...
+                                Regenerating...
                             </>
                         ) : (
                             <>
                                 <RefreshCw className="w-4 h-4" />
-                                Régénérer les codes
+                                Regenerate codes
                             </>
                         )}
                     </Button>
@@ -837,17 +837,17 @@ export function TwoFactorAuth() {
                         <div className="min-w-0 flex-1">
                             <div className="flex items-center gap-2 flex-wrap">
                                 <p className="font-bold text-sm text-foreground">
-                                    Double Authentification
+                                    Two-Factor Authentication
                                 </p>
                                 <Badge
                                     variant="secondary"
                                     className="bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20 shrink-0"
                                 >
-                                    Activé
+                                    Enabled
                                 </Badge>
                             </div>
                             <p className="text-[10px] text-muted-foreground uppercase tracking-tight">
-                                Votre compte est protégé
+                                Your account is protected
                             </p>
                         </div>
                     </div>
@@ -863,7 +863,7 @@ export function TwoFactorAuth() {
                         ) : (
                             <X className="w-3 h-3" />
                         )}
-                        Désactiver
+                        Disable
                     </Button>
                 </div>
 
@@ -875,12 +875,12 @@ export function TwoFactorAuth() {
                         </div>
                         <div className="min-w-0 flex-1">
                             <p className="font-bold text-sm text-foreground">
-                                Codes de secours
+                                Recovery codes
                             </p>
                             <p className="text-[10px] text-muted-foreground uppercase tracking-tight">
                                 {remainingCodes !== null
-                                    ? `${remainingCodes}/10 codes restants`
-                                    : "Codes disponibles en cas de perte"}
+                                    ? `${remainingCodes}/10 codes remaining`
+                                    : "Codes available in case of loss"}
                             </p>
                         </div>
                     </div>
@@ -892,7 +892,7 @@ export function TwoFactorAuth() {
                         className="gap-2 shrink-0 w-full sm:w-auto"
                     >
                         <RefreshCw className="w-3 h-3" />
-                        Régénérer
+                        Regenerate
                     </Button>
                 </div>
             </div>

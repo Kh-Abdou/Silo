@@ -19,7 +19,9 @@
     "db:push": "prisma db push",
     "db:migrate": "prisma migrate dev",
     "db:studio": "prisma studio",
-    "db:seed": "tsx prisma/seed.ts"
+    "db:seed": "tsx prisma/seed.ts",
+    "remotion:preview": "remotion preview src/remotion/Root.tsx",
+    "remotion:render": "remotion render Main out/video.mp4"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -30,6 +32,14 @@
     "@radix-ui/react-label": "^2.1.8",
     "@radix-ui/react-slot": "^1.2.4",
     "@radix-ui/react-switch": "^1.2.6",
+    "@remotion/cli": "^4.0.422",
+    "@remotion/fonts": "^4.0.422",
+    "@remotion/google-fonts": "^4.0.422",
+    "@remotion/media": "^4.0.422",
+    "@remotion/media-utils": "^4.0.422",
+    "@remotion/player": "^4.0.422",
+    "@remotion/tailwind": "^4.0.422",
+    "@remotion/transitions": "4.0.422",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.42.0",
     "@tanstack/react-query": "^5.37.0",
@@ -45,11 +55,12 @@
     "react": "^18.3.0",
     "react-dom": "^18.3.0",
     "react-hook-form": "^7.71.1",
+    "remotion": "^4.0.422",
     "sonner": "^1.7.4",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "use-debounce": "^10.1.0",
-    "zod": "^3.25.76"
+    "zod": "3.22.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.44.0",

@@ -50,11 +50,11 @@ export function ChangeEmailDialog({ open, onOpenChange, currentEmail }: ChangeEm
 
             if (rpcError) {
                 console.error("Full RPC Error:", JSON.stringify(rpcError))
-                throw new Error("Impossible de vérifier la disponibilité de l'email.")
+                throw new Error("Unable to check email availability.")
             }
 
             if (alreadyTaken) {
-                setError("Cet email est déjà associé à un autre compte.")
+                setError("This email is already associated with another account.")
                 setIsLoading(false)
                 return
             }
@@ -66,7 +66,7 @@ export function ChangeEmailDialog({ open, onOpenChange, currentEmail }: ChangeEm
             })
 
             if (signInError) {
-                setError("Mot de passe incorrect")
+                setError("Incorrect password")
                 setIsLoading(false)
                 return
             }
@@ -95,7 +95,7 @@ export function ChangeEmailDialog({ open, onOpenChange, currentEmail }: ChangeEm
             await performEmailUpdate()
 
         } catch (err: any) {
-            setError(err.message || "Une erreur est survenue")
+            setError(err.message || "An error occurred")
             setIsLoading(false)
         }
     }
@@ -113,7 +113,7 @@ export function ChangeEmailDialog({ open, onOpenChange, currentEmail }: ChangeEm
             })
 
             if (error) {
-                setError("Code incorrect")
+                setError("Incorrect code")
                 setIsLoading(false)
                 return
             }
@@ -121,7 +121,7 @@ export function ChangeEmailDialog({ open, onOpenChange, currentEmail }: ChangeEm
             await performEmailUpdate()
 
         } catch (err: any) {
-            setError(err.message || "Une erreur est survenue")
+            setError(err.message || "An error occurred")
             setIsLoading(false)
         }
     }
@@ -140,24 +140,24 @@ export function ChangeEmailDialog({ open, onOpenChange, currentEmail }: ChangeEm
                 if (updateError.status === 429 ||
                     updateError.message.toLowerCase().includes("rate limit") ||
                     updateError.message.toLowerCase().includes("too many requests")) {
-                    toast.error("Trop de tentatives, réessayez dans 1 minute")
+                    toast.error("Too many attempts, try again in 1 minute")
                 } else {
-                    toast.error(updateError.message || "Impossible de mettre à jour l'email")
+                    toast.error(updateError.message || "Unable to update email")
                 }
                 // Do NOT close the modal on error
                 return
             }
 
             // Success case
-            toast.success("Vérifiez vos emails", {
-                description: `⚠️ Action requise : Pour valider le changement, vous devez cliquer sur les liens de confirmation envoyés à vos DEUX adresses email (l'ancienne d'avord puis la nouvelle).`,
+            toast.success("Check your emails", {
+                description: `⚠️ Action required: To validate the change, you must click on the confirmation links sent to BOTH your email addresses (the old one first, then the new one).`,
                 duration: 10000,
             })
             onOpenChange(false)
 
         } catch (err: any) {
             // Unexpected errors (network, etc.)
-            toast.error(err.message || "Une erreur inattendue est survenue")
+            toast.error(err.message || "An unexpected error occurred")
         } finally {
             setIsLoading(false)
         }
@@ -190,7 +190,7 @@ export function ChangeEmailDialog({ open, onOpenChange, currentEmail }: ChangeEm
                             {/* Header */}
                             <div className="p-4 bg-muted/30 border-b border-border flex items-center justify-between">
                                 <h3 className="text-sm font-bold text-foreground">
-                                    {step === "verify" ? "Changer d'email" : "Vérification en deux étapes"}
+                                    {step === "verify" ? "Change Email" : "Two-Step Verification"}
                                 </h3>
                                 <button
                                     onClick={() => onOpenChange(false)}
@@ -212,12 +212,12 @@ export function ChangeEmailDialog({ open, onOpenChange, currentEmail }: ChangeEm
                                             className="space-y-4"
                                         >
                                             <p className="text-sm text-muted-foreground">
-                                                Pour des raisons de sécurité, veuillez confirmer votre mot de passe actuel et saisir votre nouvelle adresse email.
+                                                For security reasons, please confirm your current password and enter your new email address.
                                             </p>
 
                                             <div className="space-y-1.5">
                                                 <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                                                    Mot de passe actuel
+                                                    Current Password
                                                 </label>
                                                 <div className="relative">
                                                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -229,14 +229,14 @@ export function ChangeEmailDialog({ open, onOpenChange, currentEmail }: ChangeEm
                                                             setError(null)
                                                         }}
                                                         className="w-full h-10 pl-9 pr-4 bg-muted/30 border border-border rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none"
-                                                        placeholder="Confirmez votre identité"
+                                                        placeholder="Confirm your identity"
                                                     />
                                                 </div>
                                             </div>
 
                                             <div className="space-y-1.5">
                                                 <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
-                                                    Nouvel Email
+                                                    New Email
                                                 </label>
                                                 <div className="relative">
                                                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -248,7 +248,7 @@ export function ChangeEmailDialog({ open, onOpenChange, currentEmail }: ChangeEm
                                                             setError(null)
                                                         }}
                                                         className="w-full h-10 pl-9 pr-4 bg-muted/30 border border-border rounded-lg text-sm focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none"
-                                                        placeholder="exemple@email.com"
+                                                        placeholder="example@email.com"
                                                     />
                                                 </div>
                                             </div>
@@ -266,13 +266,13 @@ export function ChangeEmailDialog({ open, onOpenChange, currentEmail }: ChangeEm
                                                     <ShieldCheck className="w-6 h-6" />
                                                 </div>
                                                 <p className="text-sm text-center text-muted-foreground">
-                                                    Veuillez entrer le code à 6 chiffres de votre application d'authentification.
+                                                    Please enter the 6-digit code from your authentication app.
                                                 </p>
                                             </div>
 
                                             <div className="space-y-1.5">
                                                 <label className="text-xs font-medium text-muted-foreground uppercase tracking-wider block text-center">
-                                                    Code de sécurité
+                                                    Security code
                                                 </label>
                                                 <input
                                                     type="text"
@@ -310,7 +310,7 @@ export function ChangeEmailDialog({ open, onOpenChange, currentEmail }: ChangeEm
                                     onClick={() => onOpenChange(false)}
                                     className="px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
                                 >
-                                    Annuler
+                                    Cancel
                                 </button>
 
                                 {step === "verify" ? (
@@ -320,7 +320,7 @@ export function ChangeEmailDialog({ open, onOpenChange, currentEmail }: ChangeEm
                                         className="px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold rounded-lg transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
                                         {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : null}
-                                        Continuer
+                                        Continue
                                     </button>
                                 ) : (
                                     <button
@@ -329,7 +329,7 @@ export function ChangeEmailDialog({ open, onOpenChange, currentEmail }: ChangeEm
                                         className="px-4 py-2 bg-primary hover:bg-primary/90 text-primary-foreground text-sm font-semibold rounded-lg transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                                     >
                                         {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
-                                        Valider
+                                        Verify
                                     </button>
                                 )}
                             </div>

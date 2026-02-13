@@ -17,15 +17,15 @@ import { Loader2, ShieldCheck, AlertCircle, ArrowLeft, Key } from "lucide-react"
 const codeSchema = z.object({
     code: z
         .string()
-        .length(6, "Le code doit contenir 6 chiffres")
-        .regex(/^\d+$/, "Le code doit être numérique"),
+        .length(6, "Code must contain 6 digits")
+        .regex(/^\d+$/, "Code must be numeric"),
 })
 
 const recoveryCodeSchema = z.object({
     code: z
         .string()
-        .min(8, "Le code de secours est requis")
-        .max(10, "Code de secours invalide"),
+        .min(8, "Recovery code is required")
+        .max(10, "Invalid recovery code"),
 })
 
 type CodeFormData = z.infer<typeof codeSchema>
@@ -173,7 +173,7 @@ export default function VerifyMfaPage() {
             }
 
             // Success! Redirect to dashboard
-            toast.success("Vérification réussie ! Code de secours consommé.")
+            toast.success("Verification successful! Recovery code consumed.")
             router.push("/dashboard")
         } catch (err) {
             console.error("Recovery code verify error:", err)
@@ -240,12 +240,12 @@ export default function VerifyMfaPage() {
                         <>
                             <div className="text-center mb-8">
                                 <h2 className="text-xl font-semibold text-foreground">
-                                    {useRecoveryCode ? "Utiliser un code de secours" : "Vérifiez votre identité"}
+                                    {useRecoveryCode ? "Use a recovery code" : "Verify your identity"}
                                 </h2>
                                 <p className="text-sm text-muted-foreground mt-2">
                                     {useRecoveryCode
-                                        ? "Entrez l'un de vos codes de secours sauvegardés"
-                                        : "Entrez le code à 6 chiffres de Google Authenticator"}
+                                        ? "Enter one of your saved recovery codes"
+                                        : "Enter the 6-digit code from Google Authenticator"}
                                 </p>
                             </div>
 
@@ -266,7 +266,7 @@ export default function VerifyMfaPage() {
                                             className="block text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider"
                                             htmlFor="recovery-code"
                                         >
-                                            Code de Secours
+                                            Recovery Code
                                         </label>
                                         <input
                                             id="recovery-code"
@@ -295,12 +295,12 @@ export default function VerifyMfaPage() {
                                         {isVerifying ? (
                                             <>
                                                 <Loader2 className="w-4 h-4 animate-spin" />
-                                                Vérification...
+                                                Verifying...
                                             </>
                                         ) : (
                                             <>
                                                 <Key className="w-4 h-4" />
-                                                Utiliser ce code
+                                                Use this code
                                             </>
                                         )}
                                     </button>
@@ -313,7 +313,7 @@ export default function VerifyMfaPage() {
                                             className="block text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider"
                                             htmlFor="code"
                                         >
-                                            Code d&apos;authentification
+                                            Authentication code
                                         </label>
                                         <input
                                             id="code"
@@ -344,12 +344,12 @@ export default function VerifyMfaPage() {
                                         {isVerifying ? (
                                             <>
                                                 <Loader2 className="w-4 h-4 animate-spin" />
-                                                Vérification...
+                                                Verifying...
                                             </>
                                         ) : (
                                             <>
                                                 <ShieldCheck className="w-4 h-4" />
-                                                Vérifier et continuer
+                                                Verify and continue
                                             </>
                                         )}
                                     </button>
@@ -366,12 +366,12 @@ export default function VerifyMfaPage() {
                                     {useRecoveryCode ? (
                                         <>
                                             <ShieldCheck className="w-4 h-4" />
-                                            Utiliser un code d&apos;authentification
+                                            Use an authentication code
                                         </>
                                     ) : (
                                         <>
                                             <Key className="w-4 h-4" />
-                                            Téléphone perdu ? Utiliser un code de secours
+                                            Lost phone? Use a recovery code
                                         </>
                                     )}
                                 </button>
@@ -384,7 +384,7 @@ export default function VerifyMfaPage() {
                                     className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-2"
                                 >
                                     <ArrowLeft className="w-4 h-4" />
-                                    Annuler et se déconnecter
+                                    Cancel and sign out
                                 </button>
                             </div>
                         </>
@@ -394,8 +394,8 @@ export default function VerifyMfaPage() {
                 {/* Help Text */}
                 <p className="mt-8 text-xs text-muted-foreground text-center max-w-sm">
                     {useRecoveryCode
-                        ? "Les codes de secours sont à usage unique. Une fois utilisé, ce code sera invalidé."
-                        : "Ouvrez Google Authenticator sur votre appareil et entrez le code à 6 chiffres affiché pour Silo."}
+                        ? "Recovery codes are single-use. Once used, this code will be invalidated."
+                        : "Open Google Authenticator on your device and enter the 6-digit code shown for Silo."}
                 </p>
             </div>
         </main>

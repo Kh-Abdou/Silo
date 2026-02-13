@@ -65,8 +65,8 @@ export default function UpdatePasswordPage() {
                 setTimeout(() => {
                     supabase.auth.getSession().then(({ data: { session: currentSession } }) => {
                         if (!currentSession) {
-                            toast.error("Session invalide ou expirée", {
-                                description: "Veuillez demander un nouveau lien."
+                            toast.error("Invalid or expired session", {
+                                description: "Please request a new link."
                             })
                             router.push("/login")
                         }
@@ -85,14 +85,14 @@ export default function UpdatePasswordPage() {
     }
 
     const validatePassword = (value: string) => {
-        if (!value) return "Le mot de passe est requis"
-        if (value.length < 6) return "Le mot de passe doit contenir au moins 6 caractères"
+        if (!value) return "Password is required"
+        if (value.length < 6) return "Password must be at least 6 characters"
         return null
     }
 
     const validateConfirmPassword = (value: string) => {
-        if (!value) return "Veuillez confirmer le mot de passe"
-        if (value !== password) return "Les mots de passe ne correspondent pas"
+        if (!value) return "Please confirm password"
+        if (value !== password) return "Passwords do not match"
         return null
     }
 
@@ -135,7 +135,7 @@ export default function UpdatePasswordPage() {
         // If MFA is enabled and we are not yet verified (in password step), switch to 2FA step
         if (mfaEnabled && step === "password") {
             if (!verifyFactorId) {
-                toast.error("Erreur MFA", { description: "Impossible de vérifier l'authentification à deux facteurs." })
+                toast.error("MFA Error", { description: "Unable to verify two-factor authentication." })
                 setIsLoading(false)
                 return
             }
@@ -152,7 +152,7 @@ export default function UpdatePasswordPage() {
             })
 
             if (challengeError) {
-                toast.error("Code incorrect")
+                toast.error("Incorrect code")
                 setIsLoading(false)
                 return
             }
@@ -171,8 +171,8 @@ export default function UpdatePasswordPage() {
         }
 
         setIsSuccess(true)
-        toast.success("Mot de passe mis à jour", {
-            description: "Vous allez être redirigé vers le tableau de bord."
+        toast.success("Password updated", {
+            description: "You will be redirected to the dashboard."
         })
 
         // Redirect to dashboard after brief delay
@@ -185,7 +185,7 @@ export default function UpdatePasswordPage() {
             <main className="min-h-screen bg-background text-foreground relative overflow-hidden transition-colors duration-500 bg-noise flex items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
                     <Loader2 className="w-8 h-8 animate-spin text-primary" />
-                    <p className="text-muted-foreground">Vérification de la session...</p>
+                    <p className="text-muted-foreground">Checking session...</p>
                 </div>
             </main>
         )
@@ -197,8 +197,8 @@ export default function UpdatePasswordPage() {
             <main className="min-h-screen bg-background text-foreground relative overflow-hidden transition-colors duration-500 bg-noise flex items-center justify-center">
                 <div className="flex flex-col items-center gap-4">
                     <CheckCircle className="w-16 h-16 text-green-500" />
-                    <h2 className="text-xl font-semibold">Mot de passe mis à jour!</h2>
-                    <p className="text-muted-foreground">Redirection en cours...</p>
+                    <h2 className="text-xl font-semibold">Password updated!</h2>
+                    <p className="text-muted-foreground">Redirecting...</p>
                 </div>
             </main>
         )
@@ -244,8 +244,8 @@ export default function UpdatePasswordPage() {
                 {/* Main Card */}
                 <div className="w-full max-w-md bg-card border border-border rounded-xl shadow-2xl p-8">
                     <div className="text-center mb-8">
-                        <h2 className="text-xl font-semibold text-foreground">Réinitialiser votre mot de passe</h2>
-                        <p className="text-sm text-muted-foreground mt-2">Choisissez un nouveau mot de passe sécurisé</p>
+                        <h2 className="text-xl font-semibold text-foreground">Reset your password</h2>
+                        <p className="text-sm text-muted-foreground mt-2">Choose a new secure password</p>
                     </div>
 
                     <form className="space-y-4" onSubmit={handleSubmit}>
@@ -254,7 +254,7 @@ export default function UpdatePasswordPage() {
                                 {/* New Password Input */}
                                 <div>
                                     <label className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider" htmlFor="password">
-                                        Nouveau mot de passe
+                                        New password
                                     </label>
                                     <div className="relative">
                                         <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -286,7 +286,7 @@ export default function UpdatePasswordPage() {
                                 {/* Confirm Password Input */}
                                 <div>
                                     <label className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider" htmlFor="confirmPassword">
-                                        Confirmer le mot de passe
+                                        Confirm password
                                     </label>
                                     <div className="relative">
                                         <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
@@ -320,12 +320,12 @@ export default function UpdatePasswordPage() {
                             <div className="space-y-4">
                                 <ShieldCheck className="w-12 h-12 text-primary mx-auto mb-2" />
                                 <p className="text-center text-sm text-muted-foreground">
-                                    Double authentification requise. Veuillez entrer le code de votre application.
+                                    Two-factor authentication required. Please enter the code from your app.
                                 </p>
 
                                 <div>
                                     <label className="block text-xs font-medium text-muted-foreground mb-1.5 uppercase tracking-wider text-center" htmlFor="otp">
-                                        Code de sécurité
+                                        Security code
                                     </label>
                                     <input
                                         id="otp"
@@ -348,7 +348,7 @@ export default function UpdatePasswordPage() {
                             disabled={isLoading}
                         >
                             {isLoading && <Loader2 className="w-4 h-4 animate-spin" />}
-                            {isLoading ? "Traitement..." : (step === "password" ? (mfaEnabled ? "Suivant" : "Mettre à jour le mot de passe") : "Valider et mettre à jour")}
+                            {isLoading ? "Processing..." : (step === "password" ? (mfaEnabled ? "Next" : "Update password") : "Verify and update")}
                         </button>
                     </form>
                 </div>

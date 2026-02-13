@@ -21,15 +21,16 @@ interface SettingsModalProps {
     initialTab?: SettingsTab
     user: SupabaseUser | null
     onExportZip?: () => Promise<void>
+    onUpdate?: () => void
 }
 
 const tabs = [
-    { id: "general" as const, label: "Général", icon: User },
-    { id: "security" as const, label: "Sécurité", icon: Shield },
-    { id: "data" as const, label: "Données", icon: Database },
+    { id: "general" as const, label: "General", icon: User },
+    { id: "security" as const, label: "Security", icon: Shield },
+    { id: "data" as const, label: "Data", icon: Database },
 ]
 
-export function SettingsModal({ open, onOpenChange, initialTab = "general", user, onExportZip }: SettingsModalProps) {
+export function SettingsModal({ open, onOpenChange, initialTab = "general", user, onExportZip, onUpdate }: SettingsModalProps) {
     const [activeTab, setActiveTab] = React.useState<SettingsTab>(initialTab)
     const [name, setName] = React.useState("")
     const [email, setEmail] = React.useState("")
@@ -38,6 +39,7 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
     const [errors, setErrors] = React.useState<{ name?: string }>({})
     const [isLoading, setIsLoading] = React.useState(false)
     const [isFetching, setIsFetching] = React.useState(true)
+    const [isDeleting, setIsDeleting] = React.useState(false)
     const fileInputRef = React.useRef<HTMLInputElement>(null)
     const { isTouch } = useDevice()
 
@@ -71,7 +73,7 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
         if (!file) return
 
         if (file.size > 500 * 1024) {
-            toast.error("L'image doit faire moins de 500KB")
+            toast.error("Image must be under 500KB")
             return
         }
 
@@ -86,10 +88,10 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
     const validateForm = () => {
         const newErrors: { name?: string } = {}
         if (!name || name.length < 2) {
-            newErrors.name = "Le nom doit contenir au moins 2 caractères"
+            newErrors.name = "Name must be at least 2 characters"
         }
         if (name.length > 50) {
-            newErrors.name = "Le nom doit faire moins de 50 caractères"
+            newErrors.name = "Name must be under 50 characters"
         }
         setErrors(newErrors)
         return Object.keys(newErrors).length === 0
@@ -126,9 +128,9 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
             a.click()
             document.body.removeChild(a)
             URL.revokeObjectURL(url)
-            toast.success("Données exportées avec succès")
+            toast.success("Data exported successfully")
         } else {
-            toast.error("Échec de l'export")
+            toast.error("Export failed")
         }
     }
 
@@ -142,11 +144,16 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
 
 
     const handleClearAll = async () => {
-        if (confirm("DANGER: Cette action supprimera toutes vos données. Continuer ?")) {
-            const res = await deleteAllResources()
-            if (res.success) {
-                toast.success("Mémoire purgée")
+        if (confirm("DANGER: This action will delete all your data. Continue?")) {
+            setIsDeleting(true)
+            const result = await deleteAllResources()
+            if (result.success) {
+                toast.success("Memory purged")
+                onUpdate?.()
+            } else {
+                toast.error("Failed to delete")
             }
+            setIsDeleting(false)
         }
     }
 
@@ -197,9 +204,9 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
                             {/* Header */}
                             <div className="p-4 bg-muted/30 border-b border-border flex items-center justify-between shrink-0">
                                 <div>
-                                    <h2 className="text-lg font-bold tracking-tight text-foreground">Paramètres</h2>
+                                    <h2 className="text-lg font-bold tracking-tight text-foreground">Settings</h2>
                                     <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">
-                                        Gérer votre compte
+                                        Manage your account
                                     </p>
                                 </div>
                                 <button
@@ -281,7 +288,7 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
                                                         />
                                                     </div>
                                                     <div className="flex-1">
-                                                        <p className="text-xs text-muted-foreground">Cliquez pour changer la photo</p>
+                                                        <p className="text-xs text-muted-foreground">Click to change photo</p>
                                                         <p className="text-[10px] text-muted-foreground/60">Max 500KB, JPG/PNG</p>
                                                     </div>
                                                 </div>
@@ -289,7 +296,7 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
                                                 {/* Name Field */}
                                                 <div>
                                                     <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1.5">
-                                                        Nom d'affichage
+                                                        Display Name
                                                     </label>
                                                     <input
                                                         type="text"
@@ -302,7 +309,7 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
                                                             "w-full h-11 px-4 bg-muted/30 border rounded-lg text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none",
                                                             errors.name ? "border-red-500" : "border-border"
                                                         )}
-                                                        placeholder="Votre nom"
+                                                        placeholder="Your name"
                                                     />
                                                     {errors.name && (
                                                         <p className="mt-1 text-xs text-red-500 flex items-center gap-1">
@@ -315,7 +322,7 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
                                                 {/* Email Field - READ ONLY */}
                                                 <div>
                                                     <label className="block text-xs font-medium text-muted-foreground uppercase tracking-wider mb-1.5 flex items-center gap-1">
-                                                        Adresse Email
+                                                        Email Address
                                                         <Lock className="w-3 h-3" />
                                                     </label>
                                                     <div className="relative">
@@ -329,13 +336,13 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
                                                         <button
                                                             onClick={() => setIsChangeEmailOpen(true)}
                                                             className="absolute right-2 top-1/2 -translate-y-1/2 p-2 hover:bg-muted rounded-full text-foreground/50 hover:text-primary transition-colors"
-                                                            title="Modifier l'email"
+                                                            title="Modify Email"
                                                         >
                                                             <Pencil className="w-4 h-4" />
                                                         </button>
                                                     </div>
                                                     <p className="mt-1 text-[10px] text-muted-foreground">
-                                                        L'email ne peut pas être modifié sans vérification d'identité.
+                                                        Email cannot be changed without identity verification.
                                                     </p>
                                                 </div>
 
@@ -352,7 +359,7 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
                                                     className="w-full h-11 bg-primary hover:bg-primary/90 text-primary-foreground font-semibold rounded-lg transition-colors flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                                                 >
                                                     {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
-                                                    {isLoading ? "Enregistrement..." : "Enregistrer"}
+                                                    {isLoading ? "Saving..." : "Save Changes"}
                                                 </button>
                                             </motion.div>
                                         )}
@@ -368,7 +375,7 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
                                                 {/* 2FA Section */}
                                                 <div>
                                                     <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-4">
-                                                        Authentification à deux facteurs
+                                                        Two-Factor Authentication
                                                     </h3>
                                                     <TwoFactorAuth />
                                                 </div>
@@ -386,7 +393,7 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
                                                 {/* Export Section */}
                                                 <div>
                                                     <h3 className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mb-4">
-                                                        Exporter les données
+                                                        Export Data
                                                     </h3>
                                                     <button
                                                         onClick={handleExport}
@@ -397,8 +404,8 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
                                                                 <Download className="w-5 h-5" />
                                                             </div>
                                                             <div className="text-left">
-                                                                <p className="font-bold text-sm text-foreground">Exporter le Vault (JSON)</p>
-                                                                <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Télécharger au format brut</p>
+                                                                <p className="font-bold text-sm text-foreground">Export Vault (JSON)</p>
+                                                                <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Download raw format</p>
                                                             </div>
                                                         </div>
                                                     </button>
@@ -417,8 +424,8 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
                                                                 )}
                                                             </div>
                                                             <div className="text-left">
-                                                                <p className="font-bold text-sm text-foreground">Exporter le Vault (ZIP)</p>
-                                                                <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Organisé par dossiers via Tags</p>
+                                                                <p className="font-bold text-sm text-foreground">Export Vault (ZIP)</p>
+                                                                <p className="text-[10px] text-muted-foreground uppercase tracking-widest">Organized by folders via Tags</p>
                                                             </div>
                                                         </div>
                                                     </button>
@@ -428,19 +435,24 @@ export function SettingsModal({ open, onOpenChange, initialTab = "general", user
                                                 {/* Danger Zone */}
                                                 <div>
                                                     <h3 className="text-[10px] font-bold text-destructive uppercase tracking-widest mb-4">
-                                                        Zone de danger
+                                                        Danger Zone
                                                     </h3>
                                                     <button
                                                         onClick={handleClearAll}
-                                                        className="w-full flex items-center justify-between p-4 rounded-xl bg-destructive/5 border border-destructive/20 text-destructive hover:bg-destructive/10 transition-all group"
+                                                        disabled={isDeleting}
+                                                        className="w-full flex items-center justify-between p-4 rounded-xl bg-destructive/5 border border-destructive/20 text-destructive hover:bg-destructive/10 transition-all group disabled:opacity-50 disabled:cursor-not-allowed"
                                                     >
                                                         <div className="flex items-center gap-3">
                                                             <div className="w-10 h-10 rounded-xl flex items-center justify-center bg-destructive/10 text-destructive">
-                                                                <AlertCircle className="w-5 h-5" />
+                                                                {isDeleting ? (
+                                                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                                                ) : (
+                                                                    <AlertCircle className="w-5 h-5" />
+                                                                )}
                                                             </div>
                                                             <div className="text-left">
-                                                                <p className="font-bold text-sm">Purger toute la mémoire</p>
-                                                                <p className="text-[10px] opacity-70 uppercase tracking-widest">Supprimer toutes les ressources</p>
+                                                                <p className="font-bold text-sm">Purge all memory</p>
+                                                                <p className="text-[10px] opacity-70 uppercase tracking-widest">Delete all resources</p>
                                                             </div>
                                                         </div>
                                                         <Trash2 className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity" />

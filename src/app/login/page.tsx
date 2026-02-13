@@ -339,9 +339,9 @@ function LoginForm() {
                         <div className="flex flex-col items-center gap-4 py-6">
                             <CheckCircle className="w-12 h-12 text-green-500" />
                             <div className="text-center">
-                                <p className="font-medium text-foreground">Email envoyé!</p>
+                                <p className="font-medium text-foreground">Email sent!</p>
                                 <p className="text-sm text-muted-foreground mt-2">
-                                    Si un compte existe avec cet email, un lien de réinitialisation a été envoyé.
+                                    If an account exists with this email, a reset link has been sent.
                                 </p>
                             </div>
                             <button
@@ -349,7 +349,7 @@ function LoginForm() {
                                 onClick={handleForgotPasswordClose}
                                 className="mt-2 px-6 h-10 bg-primary hover:bg-primary/90 text-primary-foreground font-medium rounded-lg transition-colors"
                             >
-                                Fermer
+                                Close
                             </button>
                         </div>
                     ) : (
@@ -385,7 +385,7 @@ function LoginForm() {
                                     onClick={handleForgotPasswordClose}
                                     className="flex-1 h-10 border border-border bg-card hover:bg-accent text-foreground font-medium rounded-lg transition-colors"
                                 >
-                                    Annuler
+                                    Cancel
                                 </button>
                                 <button
                                     type="submit"
@@ -393,7 +393,7 @@ function LoginForm() {
                                     className="flex-1 h-10 bg-primary hover:bg-primary/90 text-primary-foreground font-medium rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                                 >
                                     {forgotLoading && <Loader2 className="w-4 h-4 animate-spin" />}
-                                    {forgotLoading ? "Envoi..." : "Envoyer"}
+                                    {forgotLoading ? "Sending..." : "Send"}
                                 </button>
                             </div>
                         </form>
@@ -409,11 +409,10 @@ export default function LoginPage() {
         <React.Suspense fallback={
             <div className="min-h-screen bg-background flex flex-col items-center justify-center p-4">
                 <Loader2 className="w-10 h-10 animate-spin text-primary mb-4" />
-                <p className="text-muted-foreground animate-pulse">Chargement de Silo...</p>
+                <p className="text-muted-foreground animate-pulse">Loading Silo...</p>
             </div>
         }>
             <LoginForm />
         </React.Suspense>
     )
 }
-

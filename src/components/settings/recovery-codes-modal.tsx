@@ -34,8 +34,8 @@ export function RecoveryCodesModal({
     isOpen,
     codes,
     onConfirm,
-    title = "Codes de Secours",
-    description = "Sauvegardez ces codes en lieu sûr. Ils vous permettront d'accéder à votre compte si vous perdez votre téléphone."
+    title = "Recovery Codes",
+    description = "Save these codes in a safe place. They will allow you to access your account if you lose your phone."
 }: RecoveryCodesModalProps) {
     const [acknowledged, setAcknowledged] = useState(false)
     const [copiedIndex, setCopiedIndex] = useState<number | null>(null)
@@ -51,7 +51,7 @@ export function RecoveryCodesModal({
             setCopiedIndex(index)
             setTimeout(() => setCopiedIndex(null), 2000)
         } catch {
-            toast.error("Impossible de copier le code")
+            toast.error("Unable to copy code")
         }
     }
 
@@ -60,31 +60,31 @@ export function RecoveryCodesModal({
             const codesText = codes.join("\n")
             await navigator.clipboard.writeText(codesText)
             setAllCopied(true)
-            toast.success("Tous les codes ont été copiés!")
+            toast.success("All codes copied!")
             setTimeout(() => setAllCopied(false), 2000)
         } catch {
-            toast.error("Impossible de copier les codes")
+            toast.error("Unable to copy codes")
         }
     }
 
     const handleDownload = () => {
         const content = [
             "===========================================",
-            "SILO - CODES DE SECOURS MFA",
+            "SILO - MFA RECOVERY CODES",
             "===========================================",
             "",
-            "⚠️ GARDEZ CES CODES EN LIEU SÛR",
-            "Chaque code ne peut être utilisé qu'une seule fois.",
+            "⚠️ KEEP THESE CODES IN A SAFE PLACE",
+            "Each code can only be used once.",
             "",
             "-------------------------------------------",
             ...codes.map((code, i) => `${i + 1}. ${code}`),
             "-------------------------------------------",
             "",
-            `Date de génération: ${new Date().toLocaleDateString("fr-FR")}`,
+            `Generated on: ${new Date().toLocaleDateString("en-US")}`,
             "",
-            "Si vous perdez l'accès à votre application",
-            "d'authentification, utilisez un de ces codes",
-            "pour vous connecter.",
+            "If you lose access to your authentication",
+            "app, use one of these codes",
+            "to sign in.",
             "==========================================="
         ].join("\n")
 
@@ -98,7 +98,7 @@ export function RecoveryCodesModal({
         document.body.removeChild(link)
         URL.revokeObjectURL(url)
 
-        toast.success("Fichier téléchargé!")
+        toast.success("File downloaded!")
     }
 
     const handleConfirm = () => {
@@ -135,11 +135,11 @@ export function RecoveryCodesModal({
                         <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
                         <div className="space-y-1">
                             <p className="text-sm font-semibold text-amber-700 dark:text-amber-300">
-                                Action requise !
+                                Action required!
                             </p>
                             <p className="text-xs text-amber-600 dark:text-amber-400">
-                                Ces codes ne seront <strong>jamais affichés à nouveau</strong>.
-                                Copiez-les ou téléchargez-les maintenant.
+                                These codes will <strong>never be displayed again</strong>.
+                                Copy or download them now.
                             </p>
                         </div>
                     </div>
@@ -175,12 +175,12 @@ export function RecoveryCodesModal({
                         {allCopied ? (
                             <>
                                 <Check className="w-4 h-4 text-green-500" />
-                                Copié!
+                                Copied!
                             </>
                         ) : (
                             <>
                                 <Copy className="w-4 h-4" />
-                                Copier tous
+                                Copy all
                             </>
                         )}
                     </Button>
@@ -190,7 +190,7 @@ export function RecoveryCodesModal({
                         onClick={handleDownload}
                     >
                         <Download className="w-4 h-4" />
-                        Télécharger .txt
+                        Download .txt
                     </Button>
                 </div>
 
@@ -206,8 +206,8 @@ export function RecoveryCodesModal({
                         htmlFor="acknowledge"
                         className="text-sm text-muted-foreground cursor-pointer leading-relaxed"
                     >
-                        J&apos;ai sauvegardé mes codes de secours en lieu sûr et je comprends
-                        qu&apos;ils ne seront plus jamais affichés.
+                        I have saved my recovery codes in a safe place and I understand
+                        that they will never be displayed again.
                     </Label>
                 </div>
 
@@ -218,7 +218,7 @@ export function RecoveryCodesModal({
                     className="w-full mt-2"
                     size="lg"
                 >
-                    Terminer la configuration
+                    Finish setup
                 </Button>
             </DialogContent>
         </Dialog>

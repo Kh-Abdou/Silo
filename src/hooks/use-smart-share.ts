@@ -21,7 +21,7 @@ export function useSmartShare() {
     const handleShare = async (resource: ShareResource) => {
         // Validation: Ensure we have something to share
         if (!resource.url && !resource.fileUrl) {
-            toast.info("Aucun contenu à partager")
+            toast.info("No content to share")
             return
         }
 
@@ -73,16 +73,16 @@ export function useSmartShare() {
                 const textToCopy = resource.url || resource.fileUrl || ""
                 await navigator.clipboard.writeText(textToCopy)
 
-                toast.success("Lien copié dans le presse-papier !", {
+                toast.success("Link copied to clipboard!", {
                     description: resource.title,
                     duration: 4000
                 })
             } catch (error) {
                 console.error("Clipboard error:", error)
-                toast.error("Impossible de copier le lien")
+                toast.error("Unable to copy link")
             }
         } else {
-            toast.error("Le partage n'est pas supporté par votre navigateur")
+            toast.error("Sharing is not supported by your browser")
         }
     }
 

@@ -38,8 +38,8 @@ function HomeContent() {
         setMounted(true)
         // Check for email change message
         if (searchParams.get("message") === "email_change_verify_next") {
-            toast.success("Première étape réussie", {
-                description: "N'oubliez pas de confirmer via votre second email pour finaliser le changement.",
+            toast.success("Profile updated", {
+                description: "Please check your new email to confirm the change.",
                 duration: 10000,
             })
             // Remove the param
@@ -118,23 +118,23 @@ function HomeContent() {
             : resources;
 
         if (exportList.length === 0) {
-            toast.error("Aucune ressource à exporter");
+            toast.error("No resources to export");
             return;
         }
 
-        const exportToast = toast.loading("Génération du ZIP en cours...", {
-            description: "Le téléchargement des fichiers peut prendre un moment.",
+        const exportToast = toast.loading("Generating ZIP archive...", {
+            description: "Downloading files may take a moment.",
         });
 
         try {
             const { generateResourceZip } = await import("@/lib/export-utils");
             await generateResourceZip(exportList);
-            toast.success("Export ZIP terminé", {
+            toast.success("Export complete", {
                 id: exportToast,
             });
         } catch (error) {
             console.error("Export error:", error);
-            toast.error("Erreur lors de la génération du ZIP", {
+            toast.error("Error generating ZIP archive", {
                 id: exportToast,
             });
         }
@@ -351,10 +351,13 @@ function HomeContent() {
                                 )}
                             </div>
                             <div className="px-4 py-2 bg-muted/50 flex items-center justify-between">
-                                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">Searching everywhere</span>
+                                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest px-3 py-1 bg-muted/50 rounded-lg border border-border animate-pulse">
+                                    Search everywhere
+                                </span>
                                 <div className="flex items-center gap-1.5">
-                                    <kbd className="px-1.5 py-0.5 rounded border border-border text-[9px] font-sans text-muted-foreground">ESC</kbd>
-                                    <span className="text-[9px] text-muted-foreground">to close</span>
+                                    <span className="text-[10px] text-muted-foreground font-mono opacity-50">
+                                        <kbd className="font-sans px-1 text-[9px]">ESC</kbd> to close
+                                    </span>
                                 </div>
                             </div>
                         </motion.div>

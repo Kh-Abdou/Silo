@@ -1,0 +1,12 @@
+/* Remotion Global Styles - No Tailwind needed, using inline styles */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #030508;
+    color: #F8FAFC;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+}

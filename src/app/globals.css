@@ -103,3 +103,31 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ── Landing Page Utilities ── */
+.glass {
+  background: hsl(var(--card) / 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid hsl(var(--border));
+}
+
+.glow-bg {
+  background: radial-gradient(circle at center, hsl(var(--primary) / 0.12) 0%, transparent 70%);
+}
+
+@keyframes landing-float {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotateX(1deg);
+  }
+
+  50% {
+    transform: translateY(-20px) rotateX(-1deg);
+  }
+}
+
+.animate-landing-float {
+  animation: landing-float 6s ease-in-out infinite;
+}
