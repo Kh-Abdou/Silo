@@ -5,6 +5,7 @@ import { HeroSection } from "@/components/landing/HeroSection"
 import { DemoSection } from "@/components/landing/DemoSection"
 import { BentoGrid } from "@/components/landing/BentoGrid"
 import { WorkflowSection } from "@/components/landing/WorkflowSection"
+import { GithubStarSection } from "@/components/landing/GithubStarSection"
 import { TrustSection } from "@/components/landing/TrustSection"
 
 export default function LandingPage() {
@@ -28,6 +29,7 @@ export default function LandingPage() {
                 <DemoSection />
                 <BentoGrid />
                 <WorkflowSection />
+                <GithubStarSection />
                 <TrustSection />
             </main>
 
