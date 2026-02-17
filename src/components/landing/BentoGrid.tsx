@@ -14,7 +14,7 @@ export function BentoGrid() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                     {/* Card 1: Universal Capture */}
                     <ScrollReveal>
-                        <div className="rounded-2xl border border-border bg-card p-7 h-full transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 flex flex-col group relative overflow-hidden">
+                        <div className="rounded-2xl border border-border bg-card p-7 h-full transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 flex flex-col group relative overflow-hidden">
                             <div className="w-11 h-11 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
@@ -43,7 +43,7 @@ export function BentoGrid() {
 
                     {/* Card 2: Contextual Tags */}
                     <ScrollReveal delay={1}>
-                        <div className="rounded-2xl border border-border bg-card p-7 h-full transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 flex flex-col group relative overflow-hidden">
+                        <div className="rounded-2xl border border-border bg-card p-7 h-full transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 flex flex-col group relative overflow-hidden">
                             <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center text-primary mb-6 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
@@ -65,7 +65,7 @@ export function BentoGrid() {
 
                     {/* Card 3: Total Freedom */}
                     <ScrollReveal delay={2}>
-                        <div className="rounded-2xl border border-border bg-card p-7 h-full transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/5 flex flex-col group relative overflow-hidden">
+                        <div className="rounded-2xl border border-border bg-card p-7 h-full transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 flex flex-col group relative overflow-hidden">
                             <div className="w-11 h-11 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-500 mb-6 group-hover:scale-110 group-hover:bg-amber-500/20 transition-all duration-300">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
