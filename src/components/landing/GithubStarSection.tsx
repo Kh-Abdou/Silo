@@ -29,13 +29,11 @@ export function GithubStarSection() {
                     </motion.div>
 
                     <h2 className="text-3xl md:text-5xl font-black mb-5 tracking-tight text-foreground">
-                        Loved by developers.
-                        <br />
-                        <span className="text-primary italic">Open for everyone.</span>
+                        Support the craft.
                     </h2>
 
                     <p className="text-muted-foreground text-base md:text-lg max-w-lg mx-auto mb-8 leading-relaxed">
-                        Silo is built in the open. Join our community and help us build the ultimate digital second brain.
+                        Silo is a passion project built in public. If you dig the concept or the stack, drop a star on the repo. It keeps the momentum going.
                     </p>
 
                     {/* Standardized Button Design */}

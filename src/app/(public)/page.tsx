@@ -29,8 +29,8 @@ export default function LandingPage() {
                 <DemoSection />
                 <BentoGrid />
                 <WorkflowSection />
-                <GithubStarSection />
                 <TrustSection />
+                <GithubStarSection />
             </main>
 
         </div>
