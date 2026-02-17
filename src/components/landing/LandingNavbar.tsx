@@ -29,8 +29,9 @@ export function LandingNavbar() {
 
                 {/* Nav Links */}
                 <div className="hidden md:flex items-center gap-8 text-sm font-semibold text-muted-foreground">
-                    <a href="#features" className="hover:text-foreground transition-colors">Features</a>
                     <a href="#showcase" className="hover:text-foreground transition-colors">Showcase</a>
+                    <a href="#features" className="hover:text-foreground transition-colors">Features</a>
+                    <a href="#workflow" className="hover:text-foreground transition-colors">Workflow</a>
                 </div>
 
                 {/* Actions */}
