@@ -28,6 +28,7 @@ export default function LandingPage() {
                 <BentoGrid />
                 <TrustSection />
             </main>
+
         </div>
     )
 }

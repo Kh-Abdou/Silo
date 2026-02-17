@@ -14,7 +14,7 @@ import { Toaster } from "@/components/ui/sonner"
 import { SettingsModal, SettingsTab } from "@/components/settings-modal"
 import { UserDropdownMenu } from "@/components/user-dropdown-menu"
 import { motion, AnimatePresence } from "framer-motion"
-import { Hourglass, Moon, Sun, Ghost, Search as SearchIcon, X, Trash2, Download } from "lucide-react"
+import { Hourglass, Moon, Sun, Ghost, Search as SearchIcon, X, Trash2, Download, ArrowLeft } from "lucide-react"
 import { useTheme } from "next-themes"
 import { cn } from "@/lib/utils"
 import { toast } from "sonner"
@@ -24,6 +24,7 @@ import { createClient } from "@/lib/supabase/client"
 import type { User } from "@supabase/supabase-js"
 
 import { useSearchParams, useRouter } from "next/navigation"
+import Link from "next/link"
 
 function HomeContent() {
     const { theme } = useTheme()
@@ -244,11 +245,19 @@ function HomeContent() {
             {/* Header */}
             <header className="fixed top-0 left-0 right-0 z-[50] bg-background/80 backdrop-blur-xl border-b border-border transition-all">
                 <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-2 group cursor-pointer shrink-0" onClick={() => setActiveView("home")}>
-                        <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center transition-transform group-hover:scale-110 shadow-lg">
-                            <Hourglass className="text-primary-foreground w-4 h-4" />
+                    <div className="flex items-center gap-4">
+                        <Link
+                            href="/"
+                            className="p-1.5 rounded-lg border border-border hover:bg-accent transition-all text-muted-foreground group"
+                        >
+                            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+                        </Link>
+                        <div className="flex items-center gap-2 group cursor-pointer shrink-0" onClick={() => setActiveView("home")}>
+                            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center transition-transform group-hover:scale-110 shadow-lg">
+                                <Hourglass className="text-primary-foreground w-4 h-4" />
+                            </div>
+                            <span className="hidden md:block text-lg font-bold tracking-tight text-foreground uppercase">SILO</span>
                         </div>
-                        <span className="hidden md:block text-lg font-bold tracking-tight text-foreground uppercase">SILO</span>
                     </div>
 
                     <div className="flex items-center gap-3 shrink-0">

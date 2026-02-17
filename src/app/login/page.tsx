@@ -4,7 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useTheme } from "next-themes"
-import { Moon, Sun, AlertCircle, Loader2, Mail, Lock, Eye, EyeOff, CheckCircle } from "lucide-react"
+import { Moon, Sun, AlertCircle, Loader2, Mail, Lock, Eye, EyeOff, CheckCircle, ArrowLeft } from "lucide-react"
 import { toast } from "sonner"
 import { Toaster } from "@/components/ui/sonner"
 import { signInWithGoogle, signInWithEmail } from "@/app/auth/actions"
@@ -175,6 +175,16 @@ function LoginForm() {
             <div className="blob w-[220px] h-[220px] bg-slate-100/50 dark:bg-blue-300/25 bottom-[10%] left-[15%]" />
             <div className="blob w-[140px] h-[140px] bg-white/60 dark:bg-indigo-300/20 bottom-[30%] right-[10%]" />
 
+            {/* Back Button */}
+            <div className="absolute top-6 left-6 z-50">
+                <Link
+                    href="/"
+                    className="p-2.5 rounded-xl bg-card border border-border hover:bg-accent transition-all text-muted-foreground flex items-center justify-center group"
+                >
+                    <ArrowLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+                </Link>
+            </div>
+
             {/* Theme Toggle */}
             <div className="absolute top-6 right-6 z-50">
                 <button
@@ -187,14 +197,14 @@ function LoginForm() {
 
             <div className="relative z-10 flex-1 flex flex-col items-center justify-center min-h-screen p-4">
                 {/* Logo */}
-                <div className="mb-10 flex items-center gap-3">
-                    <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-primary-foreground shadow-lg">
+                <Link href="/" className="mb-10 flex items-center gap-3 group">
+                    <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-primary-foreground shadow-lg group-hover:scale-105 transition-transform">
                         <svg className="w-6 h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                             <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
                         </svg>
                     </div>
                     <h1 className="text-2xl font-bold tracking-tight text-foreground">Silo</h1>
-                </div>
+                </Link>
 
                 {/* Main Card */}
                 <div className="w-full max-w-md bg-card border border-border rounded-xl shadow-2xl p-8">
@@ -304,26 +314,24 @@ function LoginForm() {
                                 {isLoading && <Loader2 className="w-4 h-4 animate-spin" />}
                                 {isLoading ? "Signing in..." : "Sign In"}
                             </button>
+                            <p className="text-[10px] text-muted-foreground text-center mt-4 px-2">
+                                By signing in, you agree to our{" "}
+                                <Link href="/terms" className="underline hover:text-primary transition-colors">Terms of Service</Link>
+                                {" "}and{" "}
+                                <Link href="/privacy" className="underline hover:text-primary transition-colors">Privacy Policy</Link>.
+                            </p>
                         </form>
                     </div>
 
                     <div className="mt-8 pt-6 border-t border-border text-center">
                         <p className="text-sm text-muted-foreground">
                             Don&apos;t have an account?{" "}
-                            <Link className="text-primary font-semibold hover:underline" href="/signup">Create one</Link>
+                            <Link className="text-primary font-semibold hover:underline p-1" href="/signup">Create one</Link>
                         </p>
                     </div>
                 </div>
             </div>
 
-            {/* Footer */}
-            <footer className="absolute bottom-0 left-0 right-0 p-8 text-center z-10">
-                <div className="flex justify-center gap-6 text-xs text-muted-foreground font-medium uppercase tracking-widest">
-                    <a className="hover:text-primary transition-colors" href="#">Documentation</a>
-                    <a className="hover:text-primary transition-colors" href="#">Privacy</a>
-                    <a className="hover:text-primary transition-colors" href="#">Status</a>
-                </div>
-            </footer>
 
             {/* Forgot Password Modal */}
             <Dialog open={forgotPasswordOpen} onOpenChange={handleForgotPasswordClose}>

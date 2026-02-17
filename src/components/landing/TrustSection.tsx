@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { ScrollReveal } from "./ScrollReveal"
 import { useState, useRef, useCallback, useEffect } from "react"
 import { motion, useMotionValue, useSpring, useTransform } from "framer-motion"
@@ -281,9 +282,8 @@ export function TrustSection() {
                         </div>
 
                         <div className="flex gap-8">
-                            <a href="#" className="hover:text-foreground transition-all">Privacy</a>
-                            <a href="#" className="hover:text-foreground transition-all">Terms</a>
-                            <a href="#" className="hover:text-foreground transition-all">Security</a>
+                            <Link href="/privacy" className="hover:text-foreground transition-all">Privacy</Link>
+                            <Link href="/terms" className="hover:text-foreground transition-all">Terms</Link>
                         </div>
 
                         <div className="flex gap-3">
