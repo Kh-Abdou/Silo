@@ -12,6 +12,8 @@ export const metadata: Metadata = {
     description: "Personal Knowledge Management",
 };
 
+const materialSymbolsLink = "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap";
+
 export default function RootLayout({
     children,
 }: Readonly<{
@@ -19,6 +21,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" suppressHydrationWarning>
+            <head>
+                <link rel="stylesheet" href={materialSymbolsLink} />
+            </head>
             <body className={cn("min-h-screen bg-background font-sans antialiased", inter.className)}>
                 <ThemeProvider
                     attribute="class"

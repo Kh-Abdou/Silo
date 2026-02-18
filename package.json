@@ -1,8 +1,9 @@
 {
-  "name": "Silo",
+  "name": "silo",
   "version": "0.1.0",
   "description": "Personal Knowledge Management PWA",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
