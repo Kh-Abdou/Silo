@@ -7,6 +7,7 @@ import { BentoGrid } from "@/components/landing/BentoGrid"
 import { WorkflowSection } from "@/components/landing/WorkflowSection"
 import { GithubStarSection } from "@/components/landing/GithubStarSection"
 import { TrustSection } from "@/components/landing/TrustSection"
+import { FAQSection } from "@/components/landing/FAQSection"
 import { LandingFooter } from "@/components/landing/LandingFooter"
 
 export default function LandingPage() {
@@ -30,6 +31,7 @@ export default function LandingPage() {
                 <DemoSection />
                 <BentoGrid />
                 <WorkflowSection />
+                <FAQSection />
                 <TrustSection />
                 <GithubStarSection />
             </main>
