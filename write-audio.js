@@ -15,6 +15,6 @@ const validMp3Buffer = Buffer.from(validMp3Hex, 'hex');
 // Valid MP3 Hex string was actually too small (72 bytes). 
 // Use download-audio.js instead to fetch proper files.
 // fs.writeFileSync(path.join(audioDir, 'success.mp3'), validMp3Buffer);
-// fs.writeFileSync(path.join(audioDir, 'whoosh.mp3'), validMp3Buffer);
+
 
 console.log('Skipping write-audio.js (use download-audio.js for valid assets).');

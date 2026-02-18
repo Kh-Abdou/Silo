@@ -1,4 +1,4 @@
-import { AbsoluteFill, Sequence, staticFile } from 'remotion';
+import { AbsoluteFill, staticFile } from 'remotion';
 import { Audio } from '@remotion/media';
 import { TransitionSeries, linearTiming } from '@remotion/transitions';
 import { fade } from '@remotion/transitions/fade';
@@ -15,18 +15,14 @@ export const SiloVideo: React.FC = () => {
         <AbsoluteFill style={{ backgroundColor: '#030508' }}>
             {/* Background Music - Global (Stable SoundHelix) */}
             <Audio
-                src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
+                src={staticFile("audio/background-music.mp3")}
                 volume={0.12}
                 loop
             />
 
             {/* ════ SOUND EFFECTS (SFX) ════ */}
 
-            {/* SFX: Success Chime (Delayed to match new modal timing) */}
-            {/* Local paths are now served by Next.js with correct Content-Length headers */}
-            <Sequence from={105 + 85} durationInFrames={60}>
-                <Audio src={staticFile("audio/success.mp3")} volume={0.5} />
-            </Sequence>
+            {/* SFX: Success Chime (REMOVED due to fetch error) */}
 
 
 

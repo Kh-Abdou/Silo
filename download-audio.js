@@ -31,10 +31,12 @@ function downloadFile(url, dest) {
 
 (async () => {
     try {
-        console.log('Downloading success.mp3...');
-        await downloadFile(validMp3Url, path.join(audioDir, 'success.mp3'));
-        console.log('Downloading whoosh.mp3...');
-        await downloadFile(validMp3Url, path.join(audioDir, 'whoosh.mp3'));
+
+
+        console.log('Downloading background-music.mp3...');
+        const backgroundMusicUrl = 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3';
+        await downloadFile(backgroundMusicUrl, path.join(audioDir, 'background-music.mp3'));
+
         console.log('Downloads complete.');
     } catch (error) {
         console.error('Error downloading files:', error);
