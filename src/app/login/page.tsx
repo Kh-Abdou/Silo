@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { useTheme } from "next-themes"
 import { Moon, Sun, AlertCircle, Loader2, Mail, Lock, Eye, EyeOff, CheckCircle, ArrowLeft } from "lucide-react"
+import { useThemeTransition } from "@/components/theme-transition"
 import { toast } from "sonner"
 import { Toaster } from "@/components/ui/sonner"
 import { signInWithGoogle, signInWithEmail } from "@/app/auth/actions"
@@ -18,7 +19,8 @@ import {
 } from "@/components/ui/dialog"
 
 function LoginForm() {
-    const { theme, setTheme } = useTheme()
+    const { theme } = useTheme()
+    const { toggleTheme } = useThemeTransition()
     const searchParams = useSearchParams()
     const [mounted, setMounted] = React.useState(false)
     const [email, setEmail] = React.useState("")
@@ -43,9 +45,6 @@ function LoginForm() {
         }
     }, [searchParams])
 
-    const toggleTheme = () => {
-        setTheme(theme === "dark" ? "light" : "dark")
-    }
 
     const validateEmail = (value: string) => {
         if (!value) return "Email is required"

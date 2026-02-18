@@ -4,12 +4,14 @@ import * as React from "react"
 import Link from "next/link"
 import { useTheme } from "next-themes"
 import { Moon, Sun, AlertCircle, Loader2, Mail, Lock, User, Eye, EyeOff, ArrowLeft } from "lucide-react"
+import { useThemeTransition } from "@/components/theme-transition"
 import { toast } from "sonner"
 import { Toaster } from "@/components/ui/sonner"
 import { signInWithGoogle, signUpWithEmail } from "@/app/auth/actions"
 
 export default function SignupPage() {
-    const { theme, setTheme } = useTheme()
+    const { theme } = useTheme()
+    const { toggleTheme } = useThemeTransition()
     const [mounted, setMounted] = React.useState(false)
     const [name, setName] = React.useState("")
     const [email, setEmail] = React.useState("")
@@ -23,9 +25,6 @@ export default function SignupPage() {
         setMounted(true)
     }, [])
 
-    const toggleTheme = () => {
-        setTheme(theme === "dark" ? "light" : "dark")
-    }
 
     const validateName = (value: string) => {
         if (!value) return "Name is required"
