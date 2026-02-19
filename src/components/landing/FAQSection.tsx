@@ -93,7 +93,7 @@ function FAQItemComponent({
                         }
                     `}
                 >
-                    <span className="material-symbols-outlined text-[20px]">keyboard_arrow_down</span>
+                    <span className="material-symbols-outlined text-[20px] notranslate" translate="no">keyboard_arrow_down</span>
                 </motion.div>
             </button>
 

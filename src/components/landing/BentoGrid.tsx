@@ -16,7 +16,7 @@ export function BentoGrid() {
                     <ScrollReveal>
                         <div className="rounded-2xl border border-border bg-card p-7 h-full transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 flex flex-col group relative overflow-hidden">
                             <div className="w-11 h-11 rounded-xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-500 mb-6 group-hover:scale-110 group-hover:bg-blue-500/20 transition-all duration-300 backdrop-blur-sm">
-                                <span className="material-symbols-outlined text-2xl">bolt</span>
+                                <span className="material-symbols-outlined text-2xl notranslate" translate="no">bolt</span>
                             </div>
                             <h3 className="text-xl font-bold mb-3 text-foreground">Universal Capture</h3>
                             <p className="text-[15px] leading-relaxed text-muted-foreground mb-6 flex-1">
@@ -43,7 +43,7 @@ export function BentoGrid() {
                     <ScrollReveal delay={1}>
                         <div className="rounded-2xl border border-border bg-card p-7 h-full transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 flex flex-col group relative overflow-hidden">
                             <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary mb-6 group-hover:scale-110 group-hover:bg-primary/20 transition-all duration-300 backdrop-blur-sm">
-                                <span className="material-symbols-outlined text-2xl">sell</span>
+                                <span className="material-symbols-outlined text-2xl notranslate" translate="no">sell</span>
                             </div>
                             <h3 className="text-xl font-bold mb-3 text-foreground">Contextual Tags</h3>
                             <p className="text-[15px] leading-relaxed text-muted-foreground mb-6 flex-1">
@@ -51,9 +51,9 @@ export function BentoGrid() {
                             </p>
 
                             <div className="flex flex-wrap gap-2 pt-2">
-                                <span className="px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[11px] font-bold tracking-tight border border-blue-500/20 shadow-sm transition-all group-hover:bg-blue-500/20">#Research</span>
-                                <span className="px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[11px] font-bold tracking-tight border border-amber-500/20 shadow-sm transition-all group-hover:bg-amber-500/20">#Code</span>
-                                <span className="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[11px] font-bold tracking-tight border border-emerald-500/20 shadow-sm transition-all group-hover:bg-emerald-500/20">#Design</span>
+                                <span className="px-3 py-1.5 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 text-[11px] font-bold tracking-tight border border-blue-500/20 shadow-sm transition-all group-hover:bg-blue-500/20 notranslate" translate="no">#Research</span>
+                                <span className="px-3 py-1.5 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 text-[11px] font-bold tracking-tight border border-amber-500/20 shadow-sm transition-all group-hover:bg-amber-500/20 notranslate" translate="no">#Code</span>
+                                <span className="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 text-[11px] font-bold tracking-tight border border-emerald-500/20 shadow-sm transition-all group-hover:bg-emerald-500/20 notranslate" translate="no">#Design</span>
                             </div>
                         </div>
                     </ScrollReveal>
@@ -62,14 +62,14 @@ export function BentoGrid() {
                     <ScrollReveal delay={2}>
                         <div className="rounded-2xl border border-border bg-card p-7 h-full transition-all duration-300 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 flex flex-col group relative overflow-hidden">
                             <div className="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500 mb-6 group-hover:scale-110 group-hover:bg-amber-500/20 transition-all duration-300 backdrop-blur-sm">
-                                <span className="material-symbols-outlined text-2xl">file_download</span>
+                                <span className="material-symbols-outlined text-2xl notranslate" translate="no">file_download</span>
                             </div>
                             <h3 className="text-xl font-bold mb-3 text-foreground">Total Freedom</h3>
                             <p className="text-[15px] leading-relaxed text-muted-foreground mb-6 flex-1">
                                 Your data is yours forever. Export to JSON, Markdown, or ZIP at any time. No lock-in.
                             </p>
 
-                            <div className="bg-background border border-border p-4 rounded-xl font-mono text-[10px] text-amber-600 dark:text-amber-400/70 group-hover:border-primary/20 transition-colors shadow-sm overflow-hidden">
+                            <div className="bg-background border border-border p-4 rounded-xl font-mono text-[10px] text-amber-600 dark:text-amber-400/70 group-hover:border-primary/20 transition-colors shadow-sm overflow-hidden notranslate" translate="no">
                                 {`{ "id": "0x8a2", "type": "brain_node", "data": [...] }`}
                             </div>
                         </div>

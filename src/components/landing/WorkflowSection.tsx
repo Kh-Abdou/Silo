@@ -66,10 +66,10 @@ export function WorkflowSection() {
                             number={1}
                             title="Capture"
                             description="Drop links, PDFs, and notes into one place. Your central inbox for digital chaos, available on any device."
-                            icon={<span className="material-symbols-outlined">add_circle</span>}
+                            icon={<span className="material-symbols-outlined notranslate" translate="no">add_circle</span>}
                             visual={
                                 <div className="relative w-48 h-48 border-2 border-dashed border-zinc-200 dark:border-white/10 rounded-2xl flex flex-col items-center justify-center bg-zinc-50 dark:bg-white/[0.02] z-10">
-                                    <span className="material-symbols-outlined text-zinc-200 dark:text-white/10 text-4xl mb-2">cloud_upload</span>
+                                    <span className="material-symbols-outlined text-zinc-200 dark:text-white/10 text-4xl mb-2 notranslate" translate="no">cloud_upload</span>
                                     <span className="text-[10px] font-bold uppercase tracking-widest text-zinc-300 dark:text-white/20">Drop anything</span>
 
                                     {/* Floating Social Icons */}
@@ -84,7 +84,7 @@ export function WorkflowSection() {
                                         </svg>
                                     </div>
                                     <div className="absolute bottom-4 -right-4 w-10 h-10 bg-white/[0.05] dark:bg-zinc-900/50 border border-zinc-200 dark:border-white/10 rounded-full flex items-center justify-center animate-landing-float shadow-lg backdrop-blur-md" style={{ animationDelay: "4s" }}>
-                                        <span className="material-symbols-outlined text-red-500">picture_as_pdf</span>
+                                        <span className="material-symbols-outlined text-red-500 notranslate" translate="no">picture_as_pdf</span>
                                     </div>
                                 </div>
                             }
@@ -97,24 +97,24 @@ export function WorkflowSection() {
                             number={2}
                             title="Tag & Sync"
                             description="Stop wrestling with folders. Assign flexible tags and watch your notes sync."
-                            icon={<span className="material-symbols-outlined">tag</span>}
+                            icon={<span className="material-symbols-outlined notranslate" translate="no">tag</span>}
                             visual={
                                 <div className="relative w-full h-full p-8 flex flex-col items-center justify-center z-10">
                                     <div className="w-20 h-24 bg-card dark:bg-zinc-800 rounded-lg border border-border dark:border-white/10 flex flex-col items-center justify-center gap-2 overflow-hidden shadow-2xl relative z-10">
-                                        <span className="material-symbols-outlined text-muted-foreground/20 dark:text-white/20 text-3xl">description</span>
+                                        <span className="material-symbols-outlined text-muted-foreground/20 dark:text-white/20 text-3xl notranslate" translate="no">description</span>
                                         <div className="w-10 h-1 bg-muted dark:bg-white/10 rounded-full" />
                                         <div className="w-12 h-1 bg-muted dark:bg-white/10 rounded-full" />
                                     </div>
 
                                     {/* Floating Tags */}
                                     <div className="absolute top-16 left-6 animate-landing-float z-20" style={{ animationDelay: "0.5s" }}>
-                                        <span className="px-2.5 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold text-blue-400 shadow-lg backdrop-blur-sm">#Dev</span>
+                                        <span className="px-2.5 py-1.5 rounded-lg bg-blue-500/10 border border-blue-500/20 text-[10px] font-bold text-blue-400 shadow-lg backdrop-blur-sm notranslate" translate="no">#Dev</span>
                                     </div>
                                     <div className="absolute bottom-20 right-4 animate-landing-float z-20" style={{ animationDelay: "2.5s" }}>
-                                        <span className="px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold text-emerald-400 shadow-lg backdrop-blur-sm">#Ideas</span>
+                                        <span className="px-2.5 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-bold text-emerald-400 shadow-lg backdrop-blur-sm notranslate" translate="no">#Ideas</span>
                                     </div>
                                     <div className="absolute bottom-12 left-10 animate-landing-float z-20" style={{ animationDelay: "4.5s" }}>
-                                        <span className="px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[10px] font-bold text-purple-400 shadow-lg backdrop-blur-sm">#React</span>
+                                        <span className="px-2.5 py-1.5 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[10px] font-bold text-purple-400 shadow-lg backdrop-blur-sm notranslate" translate="no">#React</span>
                                     </div>
                                 </div>
                             }
@@ -127,23 +127,23 @@ export function WorkflowSection() {
                             number={3}
                             title="Find or Export"
                             description="Retrieve ideas with a simple filter. Or take them with you. No lock-in."
-                            icon={<span className="material-symbols-outlined">manage_search</span>}
+                            icon={<span className="material-symbols-outlined notranslate" translate="no">manage_search</span>}
                             visual={
                                 <div className="w-[85%] space-y-4 relative z-10">
                                     {/* Search Bar Visual */}
                                     <div className="bg-card dark:bg-[#0A0C10] rounded-xl border border-border dark:border-white/10 shadow-2xl p-3 flex items-center gap-2 transition-transform duration-500 group-hover:-translate-y-1">
-                                        <span className="material-symbols-outlined text-muted-foreground/40 dark:text-white/40 text-sm">search</span>
+                                        <span className="material-symbols-outlined text-muted-foreground/40 dark:text-white/40 text-sm notranslate" translate="no">search</span>
                                         <div className="flex-1 text-[10px] text-muted-foreground/30 dark:text-white/30 font-sans text-left">Search anything...</div>
                                     </div>
 
                                     {/* Action Buttons Visual */}
                                     <div className="grid grid-cols-2 gap-2">
                                         <div className="bg-white/5 border border-white/10 rounded-lg p-2 flex items-center justify-center gap-1.5 transition-all group-hover:bg-white/10 shadow-sm">
-                                            <span className="material-symbols-outlined text-[14px] text-white/60">filter_list</span>
+                                            <span className="material-symbols-outlined text-[14px] text-white/60 notranslate" translate="no">filter_list</span>
                                             <span className="text-[9px] font-bold text-white/60 uppercase tracking-tighter">Filter</span>
                                         </div>
                                         <div className="bg-primary/20 border border-primary/30 rounded-lg p-2 flex items-center justify-center gap-1.5 transition-all group-hover:bg-primary/30">
-                                            <span className="material-symbols-outlined text-[14px] text-primary">download</span>
+                                            <span className="material-symbols-outlined text-[14px] text-primary notranslate" translate="no">download</span>
                                             <span className="text-[9px] font-bold text-primary uppercase tracking-tighter">Export</span>
                                         </div>
                                     </div>

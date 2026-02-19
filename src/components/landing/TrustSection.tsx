@@ -234,7 +234,8 @@ export function TrustSection() {
                         {/* Title with Magnifying Glass Effect */}
                         <div
                             ref={titleRef}
-                            className="relative mb-16 cursor-default group h-12 flex items-center justify-center pt-2"
+                            className="relative mb-16 cursor-default group h-12 flex items-center justify-center pt-2 notranslate"
+                            translate="no"
                             onMouseMove={handleMouseMove}
                             onMouseEnter={() => setIsHovering(true)}
                             onMouseLeave={() => {

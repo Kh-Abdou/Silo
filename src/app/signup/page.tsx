@@ -3,7 +3,7 @@
 import * as React from "react"
 import Link from "next/link"
 import { useTheme } from "next-themes"
-import { Moon, Sun, AlertCircle, Loader2, Mail, Lock, User, Eye, EyeOff, ArrowLeft } from "lucide-react"
+import { Moon, Sun, AlertCircle, Loader2, Mail, Lock, User, Eye, EyeOff, ArrowLeft, Hourglass } from "lucide-react"
 import { useThemeTransition } from "@/components/theme-transition"
 import { toast } from "sonner"
 import { Toaster } from "@/components/ui/sonner"
@@ -147,9 +147,7 @@ export default function SignupPage() {
                 {/* Logo */}
                 <Link href="/" className="mb-10 flex items-center gap-3 group">
                     <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-primary-foreground shadow-lg group-hover:scale-105 transition-transform">
-                        <svg className="w-6 h-6" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M6 6H42L36 24L42 42H6L12 24L6 6Z" fill="currentColor"></path>
-                        </svg>
+                        <Hourglass className="w-6 h-6 text-primary-foreground" />
                     </div>
                     <h1 className="text-2xl font-bold tracking-tight text-foreground">Silo</h1>
                 </Link>

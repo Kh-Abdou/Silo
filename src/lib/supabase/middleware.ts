@@ -101,15 +101,15 @@ export async function updateSession(request: NextRequest) {
     }
 
     // If logged in user visits landing page (/), redirect to dashboard
-    if (request.nextUrl.pathname === "/" && user) {
-        const url = request.nextUrl.clone()
-        url.pathname = "/dashboard"
-        const response = NextResponse.redirect(url)
-        supabaseResponse.cookies.getAll().forEach((cookie) => {
-            response.cookies.set(cookie.name, cookie.value, cookie)
-        })
-        return response
-    }
+    // if (request.nextUrl.pathname === "/" && user) {
+    //     const url = request.nextUrl.clone()
+    //     url.pathname = "/dashboard"
+    //     const response = NextResponse.redirect(url)
+    //     supabaseResponse.cookies.getAll().forEach((cookie) => {
+    //         response.cookies.set(cookie.name, cookie.value, cookie)
+    //     })
+    //     return response
+    // }
 
     // If on login/signup and already logged in, redirect to home
     const authPaths = ["/login", "/signup"]
