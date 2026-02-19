@@ -57,7 +57,7 @@ export const CaptureScene: React.FC = () => {
             {/* PHONE FRAME */}
             <div style={{
                 width: 280, height: 560,
-                transform: `scale(${phoneEntrance * 0.73})`,
+                transform: `scale(${phoneEntrance * 1.0})`,
                 opacity: phoneEntrance,
                 position: 'relative',
             }}>

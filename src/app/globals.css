@@ -128,6 +128,22 @@
   }
 }
 
+@keyframes landing-float-subtle {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotateX(1deg);
+  }
+
+  50% {
+    transform: translateY(-6px) rotateX(-1deg);
+  }
+}
+
 .animate-landing-float {
   animation: landing-float 6s ease-in-out infinite;
+}
+
+.animate-float-slow {
+  animation: landing-float-subtle 10s ease-in-out infinite;
 }

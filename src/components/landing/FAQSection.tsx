@@ -24,11 +24,11 @@ const faqs: FAQItem[] = [
     },
     {
         question: "Do I own my data?",
-        answer: "Absolutely. Data sovereignty is at the heart of Silo. You can export your entire database in JSON or Markdown format at any time without any restrictions."
+        answer: "Absolutely. Data sovereignty is at the heart of Silo. You can export your entire database in JSON format at any time without any restrictions."
     },
     {
         question: "Is it free?",
-        answer: "Yes, the core features are entirely free and open-source. A Premium plan is available for those who require unlimited storage and advanced AI features."
+        answer: "Yes, Silo is entirely free and open-source. There are no premium plans or hidden costs. You can host it yourself or use our managed instance."
     }
 ]
 
