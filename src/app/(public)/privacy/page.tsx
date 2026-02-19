@@ -108,7 +108,7 @@ export default function PrivacyPage() {
                             <h2 className="text-xl m-0">3. Technical Security (RLS)</h2>
                         </div>
                         <p className="text-muted-foreground leading-relaxed">
-                            Your data is protected by a robust architecture. We use Supabase **Row Level Security (RLS)**,
+                            Your data is hosted securely via trusted third-party providers (Supabase/AWS). We use Supabase **Row Level Security (RLS)**,
                             ensuring that at the database's physical level, your information is completely isolated
                             and accessible only via your own identity.
                         </p>

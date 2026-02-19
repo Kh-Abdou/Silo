@@ -3,7 +3,7 @@
 [![Vercel Deployment](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=flat-square&logo=vercel)](https://getsilo.me)
 [![Next.js](https://img.shields.io/badge/Framework-Next.js%2016.1.6-blue?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=flat-square)](https://opensource.org/licenses/MIT)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+
 
 **Silo** is a minimalist, professional workspace designed to capture, organize, and secure your digital life. It serves as your personal knowledge vault, ensuring you never lose a link, bury an idea, or forget a resource.
 
@@ -18,7 +18,7 @@ Most tools are either too complex or too messy. Silo focuses on **speed**, **str
 - **🎬 Visual Summaries (Remotion):** Generate stunning video summaries of your vault contents using built-in programmatic video creation.
 - **🔒 Security First:** Your data is protected by Supabase Auth, including Magic Links, protected session management, and secure database row-level security.
 - **📦 Smart Export:** One-click export of your entire "brain" in structured ZIP formats, preserving your data ownership and folder hierarchy.
-- **📱 PWA Ready:** Install Silo on your mobile device or desktop for a native-like, focused experience with offline support hints.
+- **📱 Mobile Responsive:** Optimized for both mobile and desktop devices with a native-like feel.
 - **🌓 Adaptive UI:** Sleek dark and light modes with smooth Framer Motion transitions and a premium aesthetic.
 
 ---
@@ -47,7 +47,7 @@ Silo/
 ├── public/             # Static assets and PWA icons
 ├── src/
 │   ├── app/            # Next.js App Router (Public & Protected routes)
-│   ├── components/     # UI components (Shadcn, Landing, Vault)
+│   ├── components/     # UI components (Shadcn, Landing, Core)
 │   ├── hooks/          # Custom React hooks (Auth, UI, Logic)
 │   ├── lib/            # Utilities, Supabase client, Prisma client
 │   ├── remotion/       # Video composition source code
@@ -117,6 +117,7 @@ Silo is built upon the shoulders of giants and wouldn't be possible without thes
 - **Video Engine:** [Remotion](https://remotion.dev/)
 - **Fonts:** [Geist Sans & Mono](https://vercel.com/font)
 - **Notifications:** [Sonner](https://sonner.emilkowal.ski/)
+- **Email Service:** [Resend](https://resend.com/) (Transactional Emails & Magic Links)
 - **Utilities:** [clsx](https://github.com/lukeed/clsx), [tailwind-merge](https://github.com/dcastil/tailwind-merge)
 
 ---
